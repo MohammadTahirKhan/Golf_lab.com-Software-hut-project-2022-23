@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_25_101256) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_16_155724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "active", default: true
+  end
+
+  create_table "categories_tags", id: false, force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["category_id", "tag_id"], name: "index_categories_tags_on_category_id_and_tag_id"
+    t.index ["tag_id", "category_id"], name: "index_categories_tags_on_tag_id_and_category_id"
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -29,6 +44,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_101256) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "category_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -36,6 +60,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_101256) do
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
