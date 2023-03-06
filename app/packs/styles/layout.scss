@@ -12,6 +12,12 @@ body {
   }
 }
 
+
+.map-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr;
+}
+
 #map { height: 600px; }
   
 polygon {

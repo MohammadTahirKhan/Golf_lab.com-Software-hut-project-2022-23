@@ -1,3 +1,13 @@
-%p{:id => "coords"}
-%div{:id => "map"}
-%svg{:id => "svg", :width => "100%", :height => "400px" }
+.map-container 
+    %div{id: "controls"}
+        %select{id: "shape-type", name: "shape-type"}
+            %option{value: "fairway"} Fairway
+            %option{value: "green"} Green
+            %option{value: "rough"} Rough
+            %option{value: "hazard"} Hazard
+            %option{value: "tee"} Teeing Ground
+
+        %button.btn.btn-primary{type: 'submit'} Save
+    %div{id: "map"}
+    %div{id: "map2"}
+    
