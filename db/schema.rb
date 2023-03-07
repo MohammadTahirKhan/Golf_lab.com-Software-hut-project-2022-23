@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_16_155724) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_07_153115) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
+  create_table "courses", force: :cascade do |t|
+    t.string "course_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "active", default: true
   end
 
-  create_table "categories_tags", id: false, force: :cascade do |t|
-    t.bigint "category_id", null: false
-    t.bigint "tag_id", null: false
-    t.index ["category_id", "tag_id"], name: "index_categories_tags_on_category_id_and_tag_id"
-    t.index ["tag_id", "category_id"], name: "index_categories_tags_on_tag_id_and_category_id"
+  create_table "data", force: :cascade do |t|
+    t.string "x_coordinates"
+    t.string "y_coordinates"
+    t.integer "hole_id"
+    t.integer "user_hole_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "terrain_type"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -44,13 +45,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_155724) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.decimal "cost"
+  create_table "holes", force: :cascade do |t|
+    t.integer "hole_number"
+    t.boolean "is_being_edited"
+    t.integer "user_id"
+    t.integer "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "category_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -62,10 +63,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_155724) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
+  create_table "user_holes", force: :cascade do |t|
+    t.integer "hole_number"
+    t.integer "user_id"
+    t.integer "hole_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "user_name"
+    t.string "user_password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "role"
   end
 
 end
