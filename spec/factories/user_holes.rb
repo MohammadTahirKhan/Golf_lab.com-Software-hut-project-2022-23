@@ -6,8 +6,18 @@
 #  hole_number :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  hole_id     :integer
-#  user_id     :integer
+#  hole_id     :bigint
+#  user_id     :bigint
+#
+# Indexes
+#
+#  index_user_holes_on_hole_id  (hole_id)
+#  index_user_holes_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (hole_id => holes.id)
+#  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
   factory :user_hole do

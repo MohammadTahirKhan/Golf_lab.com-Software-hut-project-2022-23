@@ -8,8 +8,18 @@
 #  y_coordinates :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  hole_id       :integer
-#  user_hole_id  :integer
+#  hole_id       :bigint
+#  user_hole_id  :bigint
+#
+# Indexes
+#
+#  index_data_on_hole_id       (hole_id)
+#  index_data_on_user_hole_id  (user_hole_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (hole_id => holes.id)
+#  fk_rails_...  (user_hole_id => user_holes.id)
 #
 require 'rails_helper'
 

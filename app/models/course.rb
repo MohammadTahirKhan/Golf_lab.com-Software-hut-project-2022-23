@@ -8,5 +8,5 @@
 #  updated_at  :datetime         not null
 #
 class Course < ApplicationRecord
-    has_many :holes
+    has_many :hole
 end

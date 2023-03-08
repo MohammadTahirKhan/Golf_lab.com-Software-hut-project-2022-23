@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_07_153115) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_171613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,11 +23,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_153115) do
   create_table "data", force: :cascade do |t|
     t.string "x_coordinates"
     t.string "y_coordinates"
-    t.integer "hole_id"
-    t.integer "user_hole_id"
+    t.bigint "hole_id"
+    t.bigint "user_hole_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "terrain_type"
+    t.index ["hole_id"], name: "index_data_on_hole_id"
+    t.index ["user_hole_id"], name: "index_data_on_user_hole_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -48,10 +50,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_153115) do
   create_table "holes", force: :cascade do |t|
     t.integer "hole_number"
     t.boolean "is_being_edited"
-    t.integer "user_id"
-    t.integer "course_id"
+    t.bigint "course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["course_id"], name: "index_holes_on_course_id"
+    t.index ["user_id"], name: "index_holes_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -65,18 +69,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_153115) do
 
   create_table "user_holes", force: :cascade do |t|
     t.integer "hole_number"
-    t.integer "user_id"
-    t.integer "hole_id"
+    t.bigint "hole_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["hole_id"], name: "index_user_holes_on_hole_id"
+    t.index ["user_id"], name: "index_user_holes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "user_name"
-    t.string "user_password"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "role"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "data", "holes"
+  add_foreign_key "data", "user_holes"
+  add_foreign_key "holes", "courses"
+  add_foreign_key "holes", "users"
+  add_foreign_key "user_holes", "holes"
+  add_foreign_key "user_holes", "users"
 end

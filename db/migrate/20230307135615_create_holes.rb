@@ -3,8 +3,7 @@ class CreateHoles < ActiveRecord::Migration[7.0]
     create_table :holes do |t|
       t.integer :hole_number
       t.boolean :is_being_edited
-      t.integer :user_id
-      t.integer :course_id
+      t.belongs_to :course , foreign_key: true
 
       t.timestamps
     end
