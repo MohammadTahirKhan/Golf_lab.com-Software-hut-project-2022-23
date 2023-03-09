@@ -24,5 +24,4 @@ class UserHole < ApplicationRecord
     belongs_to :hole
 
     has_many :datum
-
 end

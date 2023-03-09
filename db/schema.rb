@@ -10,24 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_171613) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_191815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "courses", force: :cascade do |t|
-    t.string "course_name"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "data", force: :cascade do |t|
-    t.string "x_coordinates"
-    t.string "y_coordinates"
-    t.bigint "hole_id"
-    t.bigint "user_hole_id"
+    t.string "xCoordinates"
+    t.string "yCoordinates"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "terrain_type"
+    t.bigint "hole_id"
+    t.bigint "user_hole_id"
     t.index ["hole_id"], name: "index_data_on_hole_id"
     t.index ["user_hole_id"], name: "index_data_on_user_hole_id"
   end
@@ -49,11 +49,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_171613) do
 
   create_table "holes", force: :cascade do |t|
     t.integer "hole_number"
-    t.boolean "is_being_edited"
-    t.bigint "course_id"
+    t.boolean "is_beingEdited"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "course_id"
     t.index ["course_id"], name: "index_holes_on_course_id"
     t.index ["user_id"], name: "index_holes_on_user_id"
   end
@@ -69,9 +69,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_171613) do
 
   create_table "user_holes", force: :cascade do |t|
     t.integer "hole_number"
-    t.bigint "hole_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "hole_id"
     t.bigint "user_id"
     t.index ["hole_id"], name: "index_user_holes_on_hole_id"
     t.index ["user_id"], name: "index_user_holes_on_user_id"

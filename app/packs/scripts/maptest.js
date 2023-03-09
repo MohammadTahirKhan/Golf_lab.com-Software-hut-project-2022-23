@@ -69,6 +69,15 @@ shapeType.onchange = function() {
 }
 
 
+
+var box = document.getElementById("lname")
+
+console.log(box.value,"nfjkdsbnfkjs")
+
+
+var button = document.getElementById("button")
+button.onclick = function() { console.log(box.value)}
+
 map.on('draw:created', function (e) {
     var layer = e.layer;
 
@@ -90,6 +99,8 @@ map.on('draw:created', function (e) {
     }
 
 });
+
+
 
 map.addLayer(fairways);
 map.addLayer(greens);

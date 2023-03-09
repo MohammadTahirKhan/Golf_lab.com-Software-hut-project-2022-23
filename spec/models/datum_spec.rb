@@ -2,14 +2,14 @@
 #
 # Table name: data
 #
-#  id            :bigint           not null, primary key
-#  terrain_type  :integer
-#  x_coordinates :string
-#  y_coordinates :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  hole_id       :bigint
-#  user_hole_id  :bigint
+#  id           :bigint           not null, primary key
+#  terrain_type :integer
+#  xCoordinates :string
+#  yCoordinates :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  hole_id      :bigint
+#  user_hole_id :bigint
 #
 # Indexes
 #

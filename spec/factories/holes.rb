@@ -2,13 +2,13 @@
 #
 # Table name: holes
 #
-#  id              :bigint           not null, primary key
-#  hole_number     :integer
-#  is_being_edited :boolean
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  course_id       :bigint
-#  user_id         :bigint
+#  id             :bigint           not null, primary key
+#  hole_number    :integer
+#  is_beingEdited :boolean
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  course_id      :bigint
+#  user_id        :bigint
 #
 # Indexes
 #
@@ -22,6 +22,9 @@
 #
 FactoryBot.define do
   factory :hole do
-    
+    hole_number { 1 }
+    is_beingEdited { false }
+    user_id { 1 }
+    course_id { 1 }
   end
 end

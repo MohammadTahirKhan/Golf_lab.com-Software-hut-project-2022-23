@@ -21,6 +21,8 @@
 #
 FactoryBot.define do
   factory :user_hole do
-    
+    hole_number { 1 }
+    user_id { 1 }
+    course_id { 1 }
   end
 end

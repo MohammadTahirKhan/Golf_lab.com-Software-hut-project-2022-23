@@ -2,13 +2,13 @@
 #
 # Table name: holes
 #
-#  id              :bigint           not null, primary key
-#  hole_number     :integer
-#  is_being_edited :boolean
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  course_id       :bigint
-#  user_id         :bigint
+#  id             :bigint           not null, primary key
+#  hole_number    :integer
+#  is_beingEdited :boolean
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  course_id      :bigint
+#  user_id        :bigint
 #
 # Indexes
 #
@@ -22,6 +22,6 @@
 #
 class Hole < ApplicationRecord
     belongs_to :course
-    belongs_to :users
+    belongs_to :user
     has_many :datum
 end

@@ -1,5 +1,8 @@
 .map-container 
     %div{id: "controls"}
+        %input#lname{:name => "lname", :type => "text" ,:value => "bur"}/
+        %button#button{:type => "button", :remote => true} Click Me!
+
         %select{id: "shape-type", name: "shape-type"}
             %option{value: "fairway"} Fairway
             %option{value: "green"} Green

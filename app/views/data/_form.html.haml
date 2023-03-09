@@ -1,0 +1,12 @@
+-# frozen_string_literal: true
+= simple_form_for(@datum) do |f|
+  .card-body
+    = f.input :xCoordinates, wrapper_html: { class: 'mb-3' }
+    = f.input :yCoordinates, wrapper_html: { class: 'mb-3' }
+    = f.input :hole_id, wrapper_html: { class: 'mb-3' }
+    = f.input :userhole_id, wrapper_html: { class: 'mb-3' }
+
+  .card-footer.d-flex
+    %button.btn.btn-primary{ type: 'submit' }
+      Save
+    = link_to 'Back', data_path, class: 'btn btn-link ms-auto'
