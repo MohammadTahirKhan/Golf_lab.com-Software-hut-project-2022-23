@@ -34,24 +34,37 @@
     text-align: center;
     margin-top: 20px;
 }
-#login{
+#login {
     background-color: rgba(0,0,0,0.8);
     border-radius: 10px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     width: 21rem;
-    height: 24rem;
+    height: 26rem;
     padding: 0 0.7rem;
     opacity: 0.9;
 }
 
+#Registration {
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 21rem;
+    height: 28.3rem;
+    padding: 0 0.7rem;
+    opacity: 0.9;
+}
+    
+
 .form-group {
     margin: 0 auto;
-    margin-top:1.7rem;
-    margin-bottom:1.7rem;
+    margin-top:2.8rem;
+    margin-bottom:1.8rem;
     width: 100%;
-    height: 2.4rem;
+    height: 2.2rem;
     color: #ffffff;
   
     input {
@@ -69,7 +82,6 @@
     text-align: center;
     justify-content: end;
     margin-top: 1.5rem;
-    margin-bottom: 1.4rem;
     padding: auto;
 }
 
@@ -78,7 +90,6 @@
 }
 
 .form-btn {
-    background-color: #3b57bc;
     color: #ffffff;
     border: 1px solid #000000;
     border-radius: 10px;
@@ -89,6 +100,7 @@
         width: 100%;
         height: 100%;
         border-radius: 10px;
+        margin-top: 3rem;
     }
 
     width: 100%;
