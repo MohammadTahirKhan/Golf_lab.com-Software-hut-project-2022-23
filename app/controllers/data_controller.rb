@@ -33,6 +33,7 @@ class DataController < ApplicationController
     puts returned["hole_id"]
     puts "YCoordinates"
     print returned["yCoordinates"]
+    print returned["userhole_id"]
 
     # if @datum.save
     #   redirect_to @datum, notice: "Datum was successfully created."
