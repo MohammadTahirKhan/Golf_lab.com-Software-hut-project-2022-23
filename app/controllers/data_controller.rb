@@ -31,6 +31,8 @@ class DataController < ApplicationController
     print returned["xCoordinates"]
     puts "hole id"
     puts returned["hole_id"]
+    puts "YCoordinates"
+    print returned["yCoordinates"]
 
     # if @datum.save
     #   redirect_to @datum, notice: "Datum was successfully created."
@@ -63,7 +65,6 @@ class DataController < ApplicationController
     # Only allow a list of trusted parameters through.
     def datum_params
       params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
-      
       # params.require(:datum).permit(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
     end
 end
