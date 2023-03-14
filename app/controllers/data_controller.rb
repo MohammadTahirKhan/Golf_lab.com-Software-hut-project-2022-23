@@ -1,5 +1,7 @@
 class DataController < ApplicationController
   before_action :set_datum, only: %i[ show edit update destroy ]
+  # respond_to :js, :json, :html, :text, :string
+  require 'json'
 
   # GET /data
   def index
@@ -13,8 +15,6 @@ class DataController < ApplicationController
   # GET /data/new
   def new
     @datum = Datum.new
-    @parameter = params[:parameter]
-    puts @parameter
   end
 
   # GET /data/1/edit
@@ -23,15 +23,14 @@ class DataController < ApplicationController
 
   # POST /data
   def create
-    # debugger
-    @x = JSON.parse(params[:datum][:xCoordinates])
+    
     @datum = Datum.new(datum_params)
 
-    if @datum.save
-      redirect_to @datum, notice: "Datum was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
+    # if @datum.save
+    #   redirect_to @datum, notice: "Datum was successfully created."
+    # else
+    #   render :new, status: :unprocessable_entity
+    # end
   end
 
   # PATCH/PUT /data/1
@@ -57,6 +56,6 @@ class DataController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def datum_params
-      params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :user_hole_id)
+      params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
     end
 end

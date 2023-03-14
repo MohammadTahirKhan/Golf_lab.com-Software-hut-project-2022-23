@@ -1,0 +1,129 @@
+.container-fluid {
+    padding: 0;
+}
+
+
+#whole {
+    display: flex;
+    padding: 0 10rem 0 10rem;
+    width: 100%;
+    // background-color: #020202;
+    background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.8)),
+    url(images/splash.jpg);
+    box-shadow: 0px 10px 23px #000000;
+
+    background-size: cover;
+    min-height: 90vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#title{
+    color: #ffffff;
+    display: flex;
+    font-size: 2.7rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    width: 70%;
+}
+
+#header{
+    color: #ffffff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 20px;
+}
+#login {
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 21rem;
+    height: 26rem;
+    padding: 0 0.7rem;
+    opacity: 0.9;
+}
+
+#Registration {
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 21rem;
+    height: 27rem;
+    padding: 0 0.7rem;
+    opacity: 0.9;
+}
+    
+
+.form-group {
+    margin: 0 auto;
+    margin-top:2.8rem;
+    margin-bottom:1.8rem;
+    width: 100%;
+    height: 2.2rem;
+    color: #ffffff;
+  
+    input {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        padding: 0 15px 0 15px;
+    }
+}
+
+#forgot_pass, #log{ 
+    color: #ffffff;
+    font-size: 15px;
+    display: flex;
+    text-align: center;
+    justify-content: end;
+    margin-top: 1.5rem;
+    padding: auto;
+}
+
+#forgot_pass:hover , #log:hover{
+    color: #65f933;
+}
+
+.form-btn {
+    color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+    button {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        margin-top: 3rem;
+    }
+
+    width: 100%;
+    height: 2.4rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#createacc, #submit {
+    color: #ffffff;
+    font-size: 0.9rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: auto;
+}
+
+#createacc:hover, #submit:hover{
+    color: #65f933;
+}
+
+// @media (max-width: 500px) {
+    
+// }

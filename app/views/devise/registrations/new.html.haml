@@ -1,0 +1,17 @@
+%div#whole
+  %h1#title Group 31
+  %div#Registration
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      %h2#header Registration
+      %div.form-group
+        = f.input :email, autofocus: true, required: true
+      %div.form-group
+        = f.input :password, required: true
+      %div.form-group
+        = f.input :password_confirmation, required: true
+      
+      %div.form-btn
+        %button.btn.btn-primary.form-btn{type: "submit" , id: "submit"} Register
+      -# %div.form-btn
+      -#   %button.btn.btn-primary.form-btn{type: "button" , id: "submit" , onclick:"window.location.href='http://localhost:3000/users/sign_in'"} Login
+      .mt3= link_to 'Login' , new_session_path(resource_name), class: 'btn btn-link', id: 'log'
