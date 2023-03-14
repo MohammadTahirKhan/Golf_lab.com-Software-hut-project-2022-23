@@ -1,5 +1,23 @@
-.row.justify-content-center
-  .col-sm-8.col-lg-6
-    .card
-      .card-header New Datum
-      = render 'form'
+-# .row.justify-content-center
+-#   .col-sm-8.col-lg-6
+-#     .card
+-#       .card-header New Datum
+-#       = render 'form'
+
+.map-container 
+    %div{id: "controls"}
+        %input#lname{:name => "lname", :type => "text" ,:value => "bur"}/
+        %button#button{:type => "button", :remote => true} Click Me!
+
+        %select{id: "shape-type", name: "shape-type"}
+            %option{value: "fairway"} Fairway
+            %option{value: "green"} Green
+            %option{value: "rough"} Rough
+            %option{value: "hazard"} Hazard
+            %option{value: "tee"} Teeing Ground
+
+        %button.btn.btn-primary{type: 'submit'} Save
+    %div{id: "map"}
+    %div{id: "map2"}
+    = render 'form'
+    

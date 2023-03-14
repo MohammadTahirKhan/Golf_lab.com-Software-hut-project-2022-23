@@ -1,5 +1,6 @@
 import L from "leaflet";
 import "leaflet-draw";
+import Rails from "@rails/ujs";
 
 
 const davenportGolfClub = new L.LatLng(53.3513668,-2.0975508);
@@ -76,7 +77,39 @@ console.log(box.value,"nfjkdsbnfkjs")
 
 
 var button = document.getElementById("button")
-button.onclick = function() { console.log(box.value)}
+button.onclick = function() { 
+    console.log(box.value)
+
+    let datum = {
+        xCoordinates : "12.5,6.7",
+        yCoordinates : "12.5,6.7",
+        hole_id : 1,
+        user_hole_id : 1
+    }
+    //let coord_params = new URLSearchParams(datum)
+    //let datum_params = new URLSearchParams({ datum: coord_params })
+
+    // console.log(usman)
+   
+    // Rails.ajax({
+    //     url:'/data',
+    //     type: 'post',
+    //     data: { datum: { datum } },
+    //     success:function(result){
+    //         alert(result);
+    //     }
+    // })
+
+    Rails.ajax({
+        type: "POST", 
+        url: "/data",
+        data: {usman : JSON.stringify(datum)},
+        success:function(result){
+            alert(result);
+        }
+      })
+
+}
 
 map.on('draw:created', function (e) {
     var layer = e.layer;
@@ -99,6 +132,7 @@ map.on('draw:created', function (e) {
     }
 
 });
+
 
 
 

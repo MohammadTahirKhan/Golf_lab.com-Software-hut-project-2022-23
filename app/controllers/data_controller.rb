@@ -13,6 +13,8 @@ class DataController < ApplicationController
   # GET /data/new
   def new
     @datum = Datum.new
+    @parameter = params[:parameter]
+    puts @parameter
   end
 
   # GET /data/1/edit
@@ -21,6 +23,8 @@ class DataController < ApplicationController
 
   # POST /data
   def create
+    # debugger
+    @x = JSON.parse(params[:datum][:xCoordinates])
     @datum = Datum.new(datum_params)
 
     if @datum.save
@@ -53,6 +57,6 @@ class DataController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def datum_params
-      params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
+      params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :user_hole_id)
     end
 end
