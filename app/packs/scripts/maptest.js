@@ -82,11 +82,11 @@ var button = document.getElementById("button")
 button.onclick = function () {
     var datum = {
         xCoordinates: [1, 2, 3],
-        yCoordinates: [4, 5, 6],
+        yCoordinates: [100, 200, 300],
         hole_id: 1,
         userhole_id: 1
     }
-    
+
     var fd = new FormData()
     fd.append("datum", JSON.stringify(datum))
 

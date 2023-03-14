@@ -15,10 +15,6 @@ class DataController < ApplicationController
   # GET /data/new
   def new
     @datum = Datum.new()
-    # puts "bobley" if @param.nil?
-    # puts @param
-    # puts @param.bob
-
   end
 
   # GET /data/1/edit
@@ -28,14 +24,11 @@ class DataController < ApplicationController
   # POST /data
   def create
     @datum = Datum.new()
-    # puts datum_params
     puts "ha"
-
     returned = JSON.parse(params[:datum])
     puts returned
     puts "Xcoords"
     print returned["xCoordinates"]
-
     puts "hole id"
     puts returned["hole_id"]
 
