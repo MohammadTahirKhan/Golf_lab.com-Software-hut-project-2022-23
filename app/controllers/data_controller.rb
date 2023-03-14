@@ -47,13 +47,13 @@ class DataController < ApplicationController
   end
 
   # PATCH/PUT /data/1
-  # def update
-  #   if @datum.update(datum_params)
-  #     redirect_to @datum, notice: "Datum was successfully updated."
-  #   else
-  #     render :edit, status: :unprocessable_entity
-  #   end
-  # end
+  def update
+    if @datum.update(datum_params)
+      redirect_to @datum, notice: "Datum was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /data/1
   def destroy
@@ -72,6 +72,5 @@ class DataController < ApplicationController
       params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
       
       # params.require(:datum).permit(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
-      # params.require(:datum).permit(:xCoordinates, )
     end
 end

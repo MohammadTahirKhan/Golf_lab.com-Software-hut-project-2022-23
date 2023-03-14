@@ -86,7 +86,7 @@ button.onclick = function () {
         hole_id: 1,
         userhole_id: 1
     }
-
+    
     var fd = new FormData()
     fd.append("datum", JSON.stringify(datum))
 
