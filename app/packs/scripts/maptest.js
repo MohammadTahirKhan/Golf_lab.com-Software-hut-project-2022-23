@@ -81,8 +81,8 @@ var button = document.getElementById("button")
 
 button.onclick = function () {
     var datum = {
-        xCoordinates: [1, 2, 3],
-        yCoordinates: [100, 200, 300],
+        xCoordinates: [10,12321,431413, 3],
+        yCoordinates: [100, 200, 300,34225],
         hole_id: 5,
         userhole_id: 3
     }
