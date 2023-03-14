@@ -1,6 +1,7 @@
 import L from "leaflet";
 import "leaflet-draw";
-import {GeoSearchControl, OpenStreetMapProvider} from 'leaflet-geosearch';
+import Rails from "@rails/ujs";
+import {GeoSearchControl, OpenStreetMapProvider} from "leaflet-geosearch";
 
 
 const searchControl = new GeoSearchControl({
@@ -74,6 +75,26 @@ shapeType.onchange = function() {
         case 'tee':
             initialiseDrawControl(tees, 'rgb(255, 255, 255)');
     }
+}
+
+var button = document.getElementById("button")
+
+button.onclick = function () {
+    var datum = {
+        xCoordinates: [1, 2, 3],
+        yCoordinates: [4, 5, 6],
+        hole_id: 1,
+        userhole_id: 1
+    }
+
+    var fd = new FormData()
+    fd.append("datum", JSON.stringify(datum))
+
+    Rails.ajax({
+        url: "/data",
+        type: "post",
+        data: fd,
+    })
 }
 
 

@@ -1,5 +1,7 @@
 class DataController < ApplicationController
   before_action :set_datum, only: %i[ show edit update destroy ]
+  # respond_to :js, :json, :html, :text, :string
+  require 'json'
 
   # GET /data
   def index
@@ -12,7 +14,11 @@ class DataController < ApplicationController
 
   # GET /data/new
   def new
-    @datum = Datum.new
+    @datum = Datum.new()
+    # puts "bobley" if @param.nil?
+    # puts @param
+    # puts @param.bob
+
   end
 
   # GET /data/1/edit
@@ -21,23 +27,33 @@ class DataController < ApplicationController
 
   # POST /data
   def create
-    @datum = Datum.new(datum_params)
+    @datum = Datum.new()
+    # puts datum_params
+    puts "ha"
 
-    if @datum.save
-      redirect_to @datum, notice: "Datum was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
+    returned = JSON.parse(params[:datum])
+    puts returned
+    puts "Xcoords"
+    print returned["xCoordinates"]
+
+    puts "hole id"
+    puts returned["hole_id"]
+
+    # if @datum.save
+    #   redirect_to @datum, notice: "Datum was successfully created."
+    # else
+    #   render :new, status: :unprocessable_entity
+    # end
   end
 
   # PATCH/PUT /data/1
-  def update
-    if @datum.update(datum_params)
-      redirect_to @datum, notice: "Datum was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @datum.update(datum_params)
+  #     redirect_to @datum, notice: "Datum was successfully updated."
+  #   else
+  #     render :edit, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /data/1
   def destroy
@@ -54,5 +70,8 @@ class DataController < ApplicationController
     # Only allow a list of trusted parameters through.
     def datum_params
       params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
+      
+      # params.require(:datum).permit(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
+      # params.require(:datum).permit(:xCoordinates, )
     end
 end
