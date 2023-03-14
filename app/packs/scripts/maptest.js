@@ -1,17 +1,25 @@
 import L from "leaflet";
 import "leaflet-draw";
+import {GeoSearchControl, OpenStreetMapProvider} from 'leaflet-geosearch';
 
 
+const searchControl = new GeoSearchControl({
+    provider: new OpenStreetMapProvider(),
+    style: 'bar',
+    showMarker: false,
+    searchLabel: 'Search for a golf course',
+});
 const davenportGolfClub = new L.LatLng(53.3513668,-2.0975508);
-const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
+const satelliteLayer = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
+    attribution: 'Imagery &copy;2023 Bluesky, CNES / Airbus, Getmapping plc, Infoterra Ltd & Bluesky, Maxar Technologies, The GeoInformation Group',
+    maxZoom: 21,
+})
 
-var map = L.map('map', {center: davenportGolfClub, zoom: 16}),
-    map2 = L.map('map2', {center: davenportGolfClub, zoom: 16, minZoom: 14, maxZoom: 18});
+var map = L.map('map', {center: davenportGolfClub, zoom: 16, maxZoom: 21});
 
 satelliteLayer.addTo(map);
 L.control.scale({position: 'topright'}).addTo(map);
-L.control.scale({position: 'topright'}).addTo(map2);
+map.addControl(searchControl);
 
 var fairways = new L.FeatureGroup(),
     greens = new L.FeatureGroup(),
@@ -69,15 +77,6 @@ shapeType.onchange = function() {
 }
 
 
-
-var box = document.getElementById("lname")
-
-console.log(box.value,"nfjkdsbnfkjs")
-
-
-var button = document.getElementById("button")
-button.onclick = function() { console.log(box.value)}
-
 map.on('draw:created', function (e) {
     var layer = e.layer;
 
@@ -109,3 +108,11 @@ map.addLayer(hazards);
 map.addLayer(tees);
 
 initialiseDrawControl(fairways, 'rgb(190, 255, 190)');
+
+
+var resultbox = document.getElementById("result");
+searchControl.onSubmit = function(result) {
+    resultbox.innerHTML = result.data.label;
+    map.flyTo([result.data.y, result.data.x])
+    console.log(result);
+}
