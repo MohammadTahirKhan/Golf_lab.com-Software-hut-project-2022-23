@@ -84,7 +84,7 @@ button.onclick = function () {
         xCoordinates: [1, 2, 3],
         yCoordinates: [100, 200, 300],
         hole_id: 5,
-        userhole_id: 8
+        userhole_id: 3
     }
 
     var fd = new FormData()

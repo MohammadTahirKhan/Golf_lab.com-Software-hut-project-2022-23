@@ -24,16 +24,17 @@ class DataController < ApplicationController
   # POST /data
   def create
     @datum = Datum.new()
-    puts "ha"
     returned = JSON.parse(params[:datum])
-    puts returned
     puts "Xcoords"
     print returned["xCoordinates"]
     puts "hole id"
     puts returned["hole_id"]
     puts "YCoordinates"
     print returned["yCoordinates"]
+    puts "user hole id"
     print returned["userhole_id"]
+
+    puts returned
 
     # if @datum.save
     #   redirect_to @datum, notice: "Datum was successfully created."
