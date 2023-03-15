@@ -27,12 +27,8 @@ class DataController < ApplicationController
     
     
    
-    @datum = Datum.new()
-    @datum.xCoordinates = 'dbfsjvdsvdsv'
-    @datum.yCoordinates = 'fdsknfsnfsf'
-    @datum.hole_id = 2
-    @datum.terrain_type = 1
-    puts 'hahaha'
+    @datum = Datum.new(datum_params)
+    
     
     if @datum.save
       redirect_to @datum,notice: "Datum was successfully created."

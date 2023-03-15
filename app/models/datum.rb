@@ -23,8 +23,8 @@
 #
 class Datum < ApplicationRecord
     belongs_to  :hole
-    belongs_to  :user_hole
+    belongs_to  :user_hole , optional: true
 
-    enum terrain: {rock:0, fairway:1, rough:2, green:3, bunker:4, tree:5, water:6, tee: 7}
+    enum terrain_type: {rock:0, fairway:1, rough:2, green:3, bunker:4, tree:5, water:6, tee: 7}
 
 end

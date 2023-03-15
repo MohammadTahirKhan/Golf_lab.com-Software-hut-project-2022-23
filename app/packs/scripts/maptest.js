@@ -91,15 +91,13 @@ shapeType.onchange = function() {
 
 var button = document.getElementById("button")
 
-function sendData(xCoordinates,yCoordinates,hole_id,user_hole_id,terrain_type){
+function sendData(xCoordinates,yCoordinates,hole_id,terrain_type){
     let form = new FormData()
 
     form.append('datum[xCoordinates]', xCoordinates)
     form.append('datum[yCoordinates]', yCoordinates)
     form.append('datum[hole_id]', hole_id)
-    if (user_hole_id != null){
-        form.append('datum[user_hole_id]', user_hole_id)
-    }
+    //form.append('datum[user_hole_id]', user_hole_id)
     form.append('datum[terrain_type]', terrain_type)
 
     Rails.ajax({
@@ -120,7 +118,7 @@ button.onclick = function () {
                 xCoordinates.push(layer.getLatLngs()[0][i].lat)
                 yCoordinates.push(layer.getLatLngs()[0][i].lng)
            } 
-           sendData(xCoordinates,yCoordinates,2,null,'fairway')
+           sendData(xCoordinates,yCoordinates,2,'fairway')
         })
 
     }
