@@ -1,26 +1,51 @@
-.card
-  .card-header.d-flex.align-items-center
-    %span Listing Data
+-# .card
+-#   .card-header.d-flex.align-items-center
+-#     %span Listing Data
 
-    = link_to 'New Datum', new_datum_path, class: 'btn btn-outline-secondary ms-auto'
+-#     = link_to 'New Datum', new_datum_path, class: 'btn btn-outline-secondary ms-auto'
 
-  %table.table
-    %thead
-      %tr
-        %th Xcoordinates
-        %th Ycoordinates
-        %th Hole
-        %th Userhole
-        %th
-    %tbody
-      - @data.each do |datum|
-        %tr
-          %td= datum.xCoordinates
-          %td= datum.yCoordinates
-          %td= datum.hole_id
-          %td= datum.userhole_id
-          %td
-            .btn-toolbar.float-end
-              = link_to 'Show', datum, class: 'btn btn-outline-secondary btn-sm'
-              = link_to 'Edit', edit_datum_path(datum), class: 'btn btn-outline-secondary ms-1 btn-sm'
-              = link_to 'Destroy', datum, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger ms-1 btn-sm'
+-#   %table.table
+-#     %thead
+-#       %tr
+-#         %th Xcoordinates
+-#         %th Ycoordinates
+-#         %th Hole
+-#         %th Userhole
+-#         %th
+-#     %tbody
+-#       - @data.each do |datum|
+-#         %tr
+-#           %td= datum.xCoordinates
+-#           %td= datum.yCoordinates
+-#           %td= datum.hole_id
+-#           %td= datum.userhole_id
+-#           %td
+-#             .btn-toolbar.float-end
+-#               = link_to 'Show', datum, class: 'btn btn-outline-secondary btn-sm'
+-#               = link_to 'Edit', edit_datum_path(datum), class: 'btn btn-outline-secondary ms-1 btn-sm'
+-#               = link_to 'Destroy', datum, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger ms-1 btn-sm'
+.map-container 
+    %div{id: "controls"}
+        %input#lname{:name => "lname", :type => "text" ,:value => "bur"}/
+        %button#button{:type => "button", :remote => true} Click Me!
+
+        %select{id: "shape-type", name: "shape-type"}
+            %option{value: "0"} Rock
+            %option{value: "1"} Fairway
+            %option{value: "2"} Rough
+            %option{value: "3"} Green
+            %option{value: "4"} Bunker
+            %option{value: "5"} Trees 
+            %option{value: "6"} Water 
+            %option{value: "7"} Tee
+           
+           
+           
+           
+            %option{value: "hazard"} Hazard
+            %option{value: "tee"} Teeing Ground
+
+        %button.btn.btn-primary{type: 'submit'} Save
+    %div{id: "map"}
+    %div{id: "map2"}
+    

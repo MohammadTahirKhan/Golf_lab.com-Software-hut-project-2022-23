@@ -14,7 +14,7 @@ class DataController < ApplicationController
 
   # GET /data/new
   def new
-    @datum = Datum.new
+    @datum = Datum.new()
   end
 
   # GET /data/1/edit
@@ -23,14 +23,23 @@ class DataController < ApplicationController
 
   # POST /data
   def create
+   # params[:datum][:terrain_type] = Datum.terrain[params[:datum][:terrain_type]]
     
-    @datum = Datum.new(datum_params)
-
-    # if @datum.save
-    #   redirect_to @datum, notice: "Datum was successfully created."
-    # else
-    #   render :new, status: :unprocessable_entity
-    # end
+    
+   
+    @datum = Datum.new()
+    @datum.xCoordinates = 'dbfsjvdsvdsv'
+    @datum.yCoordinates = 'fdsknfsnfsf'
+    @datum.hole_id = 2
+    @datum.terrain_type = 1
+    puts 'hahaha'
+    
+    if @datum.save
+      redirect_to @datum,notice: "Datum was successfully created."
+    else
+      puts @datum.errors.inspect
+      render :new, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /data/1
@@ -56,6 +65,6 @@ class DataController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def datum_params
-      params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :userhole_id)
+      params.require(:datum).permit(:xCoordinates, :yCoordinates, :hole_id, :user_hole_id, :terrain_type)
     end
 end

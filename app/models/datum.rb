@@ -25,6 +25,6 @@ class Datum < ApplicationRecord
     belongs_to  :hole
     belongs_to  :user_hole
 
-    enum :terrain_type, {rock:0, fairway:2, rough:3, green:4, bunker:5, tree:6, water:7}
+    enum terrain: {rock:0, fairway:1, rough:2, green:3, bunker:4, tree:5, water:6, tee: 7}
 
 end
