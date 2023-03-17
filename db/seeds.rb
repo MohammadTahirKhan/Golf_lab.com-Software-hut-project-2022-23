@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+Course.create(name:"UsmanHCourse")
+Hole.create(hole_number:8, is_beingEdited:false, course_id:1, user_id:1)

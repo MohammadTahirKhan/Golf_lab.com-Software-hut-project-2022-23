@@ -11,8 +11,8 @@
           %dd.col-md-9= @hole.is_beingEdited
           %dt.col-md-3 User:
           %dd.col-md-9= @hole.user_id
-          %dt.col-md-3 Course:
-          %dd.col-md-9= @hole.course_id
+          %dt.col-md-3 Course Name:
+          %dd.col-md-9= @hole.course_name
       .card-footer.d-flex
         = link_to 'Edit', edit_hole_path(@hole), class: 'btn btn-link'
         = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'

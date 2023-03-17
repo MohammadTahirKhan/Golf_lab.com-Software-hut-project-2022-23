@@ -31,6 +31,9 @@
               = link_to '/', class: 'active nav-link' do
                 %i.bi-house-fill
                 Home
+              = link_to '/holes', class: 'active nav-link' do
+                -# %i.bi-house-fill
+                Holes Page
             %nav.navbar-nav.ms-auto
               .nav-item.dropdown
                 - if user_signed_in?
