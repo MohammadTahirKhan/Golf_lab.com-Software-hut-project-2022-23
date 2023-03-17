@@ -22,7 +22,7 @@
 #  fk_rails_...  (user_hole_id => user_holes.id)
 #
 class Datum < ApplicationRecord
-    belongs_to  :hole
+    belongs_to  :hole , optional:true
     belongs_to  :user_hole , optional: true
 
     enum terrain_type: {rock:0, fairway:1, rough:2, green:3, bunker:4, tree:5, water:6, tee: 7}

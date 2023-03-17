@@ -22,7 +22,7 @@ class HolesController < ApplicationController
   # POST /holes
   def create
     @hole = Hole.new(hole_params)
-
+    
     if @hole.save
       redirect_to @hole, notice: "Hole was successfully created."
     else
@@ -53,6 +53,6 @@ class HolesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hole_params
-      params.require(:hole).permit(:hole_number, :is_beingEdited, :user_id, :course_id)
+      params.require(:hole).permit(:hole_number, :user_id, :course_name)
     end
 end
