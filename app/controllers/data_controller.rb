@@ -15,6 +15,7 @@ class DataController < ApplicationController
   # GET /data/new
   def new
     @datum = Datum.new()
+   
   end
 
   # GET /data/1/edit
@@ -24,13 +25,12 @@ class DataController < ApplicationController
   # POST /data
   def create
    # params[:datum][:terrain_type] = Datum.terrain[params[:datum][:terrain_type]]
-    
-    
-   
     @datum = Datum.new(datum_params)
+    @holes = Hole.all
     
     
     if @datum.save
+    
       redirect_to @datum,notice: "Datum was successfully created."
     else
       puts @datum.errors.inspect

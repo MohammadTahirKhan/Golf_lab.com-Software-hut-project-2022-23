@@ -24,6 +24,7 @@ class HolesController < ApplicationController
     @hole = Hole.new(hole_params)
 
     if @hole.save
+      id  = @hole.id
       redirect_to @hole, notice: "Hole was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -33,6 +34,7 @@ class HolesController < ApplicationController
   # PATCH/PUT /holes/1
   def update
     if @hole.update(hole_params)
+      x = params[:id]
       redirect_to @hole, notice: "Hole was successfully updated."
     else
       render :edit, status: :unprocessable_entity

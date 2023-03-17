@@ -6,7 +6,8 @@
 
 .map-container 
     %div{id: "controls"}
-        %input#lname{:name => "lname", :type => "text" ,:value => "bur"}/
+        %input#lname{:name => "lname", :type => "text" ,:value => "bur"}
+        %input#lname{:name => "lname", :type => "text" ,:value => @hole}/
         %button#button{:type => "button", :remote => true} Click Me!
 
         %select{id: "shape-type", name: "shape-type"}
@@ -15,6 +16,13 @@
             %option{value: "rough"} Rough
             %option{value: "hazard"} Hazard
             %option{value: "tee"} Teeing Ground
+    
+        %select{id: "shape-type", name: "shape-type"}
+            %option{value: "fairway"} Fairway
+            %option{value: "green"} Green
+            %option{value: "rough"} Rough
+            %option{value: "hazard"} Hazard
+            %option{value: "tee"} Teeing Ground    
 
         %button.btn.btn-primary{type: 'submit'} Save
     %div{id: "map"}
