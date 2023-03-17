@@ -1,0 +1,14 @@
+%p{id: "result"}
+.map-container 
+    %div{id: "controls"}
+        %select{id: "shape-type", name: "shape-type"}
+            %option{value: "fairway"} Fairway
+            %option{value: "green"} Green
+            %option{value: "rough"} Rough
+            %option{value: "hazard"} Hazard
+            %option{value: "tee"} Teeing Ground
+
+        -# %button.btn.btn-primary{type: 'submit'} Save
+    
+%div{id: "map"}
+    
