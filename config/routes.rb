@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post '/holes/:id/edit', to: 'data#create'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  get "profile", to: "profile#index"
+
   # Defines the root path route ("/")
   root "pages#home"
 end
