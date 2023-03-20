@@ -39,17 +39,17 @@
                 - if user_signed_in?
                   = link_to current_user.email, '#', class: 'nav-link dropdown-toggle', role: 'button', data: { bs_toggle: 'dropdown' }, aria: { expanded: 'false' }
                   %nav.dropdown-menu.dropdown-menu-md-end
-                    = link_to 'Log out', destroy_user_session_path, class: 'dropdown-item', method: :delete
+                    = link_to 'Log out', destroy_user_session_path , class: 'dropdown-item', method: :delete , style: 'color: red', onclick: "return confirm('Are you sure?')"
                     = link_to 'Profile', profile_path, class: 'dropdown-item'
                 - else
                   = link_to 'Log in', new_user_session_path, class: 'nav-link'
             
 
-    -# - if flash.present?
-    -#   .container-fluid.flash-messages
-    -#     - flash.each do |message_type, message|
-    -#       - next unless message_type == 'alert' || message_type == 'notice'
-    -#       .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
+    - if flash.present?
+      .container-fluid.flash-messages
+        - flash.each do |message_type, message|
+          - next unless message_type == 'alert' || message_type == 'notice'
+          .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
 
     %main
       .container-fluid
