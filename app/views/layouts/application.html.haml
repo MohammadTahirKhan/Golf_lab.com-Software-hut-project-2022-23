@@ -19,7 +19,7 @@
     = javascript_pack_tag 'application'
 
   %body
-    - unless controller_name == "sessions" || controller_name == "registrations" || controller_name == "passwords"
+    - if request.fullpath != new_user_session_path && request.fullpath != new_user_registration_path && request.fullpath != new_user_password_path
       %header
         %nav.navbar.navbar-expand-lg.navbar-light.bg-light
           .container-fluid
@@ -52,18 +52,19 @@
                     = link_to 'Log in', new_user_session_path, class: 'nav-link'
             
 
-    - if flash.present?
-      .container-fluid.flash-messages
-        - flash.each do |message_type, message|
-          - next unless message_type == 'alert' || message_type == 'notice'
-          .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
+      - if flash.present?
+        .container-fluid.flash-messages
+          - flash.each do |message_type, message|
+            - next unless message_type == 'alert' || message_type == 'notice'
+            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
 
-    %main
-      - if controller_name == "sessions" || controller_name == "registrations"
-        = yield
-      - else
+      %main
         .container-fluid
           = yield
+
+    - else
+      %main
+        = yield
 
     %footer
       .container-fluid
