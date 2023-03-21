@@ -43,7 +43,7 @@
                     = link_to current_user.email, '#', class: 'nav-link dropdown-toggle btn', role: 'button', data: {bs_toggle: 'dropdown'}, aria: {expanded: 'false'}
                     %ul.dropdown-menu.dropdown-menu-end
                       %li
-                        = link_to 'Profile', profile_path, class: 'dropdown-item'
+                        = link_to 'Profile', edit_user_registration_path, class: 'dropdown-item'
                       %li
                         = link_to 'Log out', destroy_user_session_path, class: 'dropdown-item', method: :delete, onclick: "return confirm('Are you sure?')", style: 'color: red;'
             
