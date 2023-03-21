@@ -24,9 +24,9 @@ map.addControl(searchControl);
 var fairways = new L.FeatureGroup(),
     greens = new L.FeatureGroup(),
     roughs = new L.FeatureGroup(), 
-    bunker = new L.FeatureGroup(),
+    bunkers = new L.FeatureGroup(),
     water = new L.FeatureGroup(),
-    rock = new L.FeatureGroup(),
+    rocks = new L.FeatureGroup(),
     trees = new L.FeatureGroup(),
     tees = new L.FeatureGroup();
 
@@ -69,16 +69,16 @@ shapeType.onchange = function() {
             initialiseDrawControl(greens, 'rgb(0, 255, 0)');
             break;
         case 'rough':
-            initialiseDrawControl(bunker, 'rgb(0, 120, 60)');
+            initialiseDrawControl(roughs, 'rgb(0, 120, 60)');
             break;
         case 'rock':
-            initialiseDrawControl(water, 'rgb(50, 50, 50)');
+            initialiseDrawControl(rocks, 'rgb(50, 50, 50)');
             break;
         case 'bunker':
-            initialiseDrawControl(roughs, 'rgb(255, 255, 80)');
+            initialiseDrawControl(bunkers, 'rgb(255, 255, 80)');
             break;
         case 'water':
-            initialiseDrawControl(rock, 'rgb(0, 0, 255)');
+            initialiseDrawControl(water, 'rgb(0, 0, 255)');
             break;
         case 'tree':
             initialiseDrawControl(trees, 'rgb(100, 50, 0)');
@@ -123,8 +123,8 @@ submitButton.onclick = function () {
 
     }
 
-    if (bunker.getLayers().length > 0) {
-        bunker.eachLayer(function (layer) {
+    if (bunkers.getLayers().length > 0) {
+        bunkers.eachLayer(function (layer) {
             let xCoordinates = []
             let yCoordinates = []
             for (let i = 0; i < layer.getLatLngs()[0].length; i++) {
@@ -136,8 +136,8 @@ submitButton.onclick = function () {
 
     }
 
-    if (rock.getLayers().length > 0) {
-        rock.eachLayer(function (layer) {
+    if (rocks.getLayers().length > 0) {
+        rocks.eachLayer(function (layer) {
             let xCoordinates = []
             let yCoordinates = []
             for (let i = 0; i < layer.getLatLngs()[0].length; i++) {
@@ -231,10 +231,10 @@ map.on('draw:created', function (e) {
             roughs.addLayer(layer);
             break;
         case 'rock':
-            rock.addLayer(layer);
+            rocks.addLayer(layer);
             break;
         case 'bunker':
-            bunker.addLayer(layer);
+            bunkers.addLayer(layer);
             break;
         case 'water':
             water.addLayer(layer);
@@ -254,11 +254,9 @@ map.addLayer(greens);
 map.addLayer(roughs);
 map.addLayer(trees);
 map.addLayer(water);
-map.addLayer(bunker);
-map.addLayer(rock);
+map.addLayer(bunkers);
+map.addLayer(rocks);
 map.addLayer(tees);
-
-initialiseDrawControl(rock, 'rgb(190, 255, 190)');
 
 
 var courseName = document.getElementById("hole_course_name");
@@ -267,3 +265,6 @@ searchControl.onSubmit = function(result) {
     courseName.value = searchedCourseName
     map.flyTo([result.data.y, result.data.x])
 }
+
+
+initialiseDrawControl(fairways, 'rgb(190, 255, 190)');
