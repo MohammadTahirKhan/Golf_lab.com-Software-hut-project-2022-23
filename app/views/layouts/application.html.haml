@@ -19,7 +19,8 @@
     = javascript_pack_tag 'application'
 
   %body
-    - if request.fullpath != new_user_session_path && request.fullpath != new_user_registration_path && request.fullpath != new_user_password_path
+    -# - if request.fullpath != new_user_session_path && request.fullpath != new_user_registration_path && request.fullpath != new_user_password_path
+    -unless !user_signed_in? && (controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords')
       %header
         %nav.navbar.navbar-expand-lg.navbar-light.bg-light
           .container-fluid
@@ -34,9 +35,9 @@
               %ul.navbar-nav.me-auto.mb-2.mb-lg-0
                 %li.nav-item
                   = link_to 'Home', root_path, class: 'nav-link'
-                %li.nav-item
-                  = link_to 'Holes Page', holes_path, class: 'nav-link'
-
+                - if user_signed_in?
+                  %li.nav-item
+                    = link_to 'Holes Page', holes_path, class: 'nav-link'
               %ul.navbar-nav
                 - if user_signed_in?
                   %li.nav-item.dropdown
@@ -50,13 +51,13 @@
                 - else 
                   %li.nav-item
                     = link_to 'Log in', new_user_session_path, class: 'nav-link'
-            
+              
 
-      - if flash.present?
-        .container-fluid.flash-messages
-          - flash.each do |message_type, message|
-            - next unless message_type == 'alert' || message_type == 'notice'
-            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
+    - if flash.present?
+      .container-fluid.flash-messages
+        - flash.each do |message_type, message|
+          - next unless message_type == 'alert' || message_type == 'notice'
+          .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
 
       %main
         .container-fluid
