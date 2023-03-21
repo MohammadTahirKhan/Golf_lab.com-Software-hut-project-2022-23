@@ -2,4 +2,20 @@
   .col-sm-8.col-lg-6
     .card
       .card-header New Hole
-      = render 'form'
+      = simple_form_for(@hole) do |f|
+        .card-body
+          = f.input :hole_number
+          = f.input :course_name, disabled: true
+          %select{id: "shape-type", name: "shape-type"}
+            %option{value: "1"} Fairway
+            %option{value: "3"} Green
+            %option{value: "2"} Rough
+            %option{value: "0"} Hazard
+            %option{value: "7"} Teeing Ground
+
+          #map
+
+
+        .card-footer.d-flex
+          = f.button :submit, class: 'btn btn-primary'
+          = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'
