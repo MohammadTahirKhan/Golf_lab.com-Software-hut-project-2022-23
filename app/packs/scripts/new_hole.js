@@ -88,7 +88,6 @@ shapeType.onchange = function() {
     }
 }
 
-var button = document.getElementById('submit')
 
 function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
     let form = new FormData()
@@ -105,6 +104,8 @@ function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
         data: form,
     })
 }
+
+
 button.onclick = function () {
 
     var hole_id = document.getElementById("holeid").value
