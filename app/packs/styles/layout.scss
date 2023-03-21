@@ -16,15 +16,15 @@ body {
     margin-bottom: 1rem;
   }
 
+  #shape-type {
+    margin-bottom: 1rem;
+  }
+
+  #map { 
+    aspect-ratio: 1/1;
+  }
+
   footer {
     margin-top: auto;
   }
 }
-
-
-.map-container {
-  display: grid;
-  grid-template-columns: 1fr 3fr 3fr;
-}
-
-#map { height: 600px; }

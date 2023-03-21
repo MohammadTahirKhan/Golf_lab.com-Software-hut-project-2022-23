@@ -9,13 +9,13 @@ const searchControl = new GeoSearchControl({
     showMarker: false,
     searchLabel: 'Search for a golf course',
 });
-const davenportGolfClub = new L.LatLng(53.3513668,-2.0975508);
 const satelliteLayer = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
     attribution: 'Imagery &copy;2023 Bluesky, CNES / Airbus, Getmapping plc, Infoterra Ltd & Bluesky, Maxar Technologies, The GeoInformation Group',
     maxZoom: 21,
+    noWrap: true,
 })
 
-var map = L.map('map', {center: davenportGolfClub, zoom: 16, maxZoom: 21});
+var map = L.map('map', {center: [54, -10], zoom: 14, maxZoom: 21, minZoom: 4, maxBounds: [[-90, -180], [90, 180]]});
 
 satelliteLayer.addTo(map);
 L.control.scale({position: 'topright'}).addTo(map);
@@ -62,28 +62,28 @@ function initialiseDrawControl(type, colour) {
 var shapeType = document.getElementById('shape-type');
 shapeType.onchange = function() {
     switch (shapeType.value) {
-        case '1':
+        case 'fairway':
             initialiseDrawControl(fairways, 'rgb(190, 255, 190)');
             break;
-        case '3':
+        case 'green':
             initialiseDrawControl(greens, 'rgb(0, 255, 0)');
             break;
-        case '4':
-            initialiseDrawControl(bunker, 'rgb(100, 255, 100)');
+        case 'rough':
+            initialiseDrawControl(bunker, 'rgb(0, 120, 60)');
             break;
-        case '6':
-            initialiseDrawControl(water, 'rgb(100, 255, 100)');
+        case 'rock':
+            initialiseDrawControl(water, 'rgb(50, 50, 50)');
             break;
-        case '2':
-            initialiseDrawControl(roughs, 'rgb(100, 255, 100)');
+        case 'bunker':
+            initialiseDrawControl(roughs, 'rgb(255, 255, 80)');
             break;
-        case '0':
-            initialiseDrawControl(rock, 'rgb(255, 0, 0)');
+        case 'water':
+            initialiseDrawControl(rock, 'rgb(0, 0, 255)');
             break;
-        case '6':
-            initialiseDrawControl(trees, 'rgb(255, 0, 0)');
+        case 'tree':
+            initialiseDrawControl(trees, 'rgb(100, 50, 0)');
             break;
-        case '7':
+        case 'tee':
             initialiseDrawControl(tees, 'rgb(255, 255, 255)');
     }
 }
@@ -106,8 +106,8 @@ function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
 }
 
 
-button.onclick = function () {
-
+var submitButton = document.getElementById('submit-hole');
+submitButton.onclick = function () {
     var hole_id = document.getElementById("holeid").value
    
     if (fairways.getLayers().length > 0 ){
@@ -221,31 +221,30 @@ map.on('draw:created', function (e) {
     var layer = e.layer;
 
     switch (shapeType.value) {
-        case '1':
+        case 'fairway':
             fairways.addLayer(layer);
             break;
-        case '3':
+        case 'green':
             greens.addLayer(layer);
             break;
-        case '2':
+        case 'rough':
             roughs.addLayer(layer);
             break;
-        case '0':
+        case 'rock':
             rock.addLayer(layer);
             break;
-        case '4':
+        case 'bunker':
             bunker.addLayer(layer);
             break;
-        case '6':
+        case 'water':
             water.addLayer(layer);
             break;
-        case '5':
+        case 'tree':
             trees.addLayer(layer);
             break;     
-        case '7':
+        case 'tee':
             tees.addLayer(layer);
     }
-
 });
 
 
@@ -262,9 +261,9 @@ map.addLayer(tees);
 initialiseDrawControl(rock, 'rgb(190, 255, 190)');
 
 
-var resultbox = document.getElementById("result");
+var courseName = document.getElementById("hole_course_name");
 searchControl.onSubmit = function(result) {
-    resultbox.innerHTML = result.data.label;
+    var searchedCourseName = result.data.label.split(",")[0];
+    courseName.value = searchedCourseName
     map.flyTo([result.data.y, result.data.x])
-    console.log(result);
 }
