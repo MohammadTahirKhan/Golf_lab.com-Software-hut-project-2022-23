@@ -1,20 +1,5 @@
--# .row.justify-content-center
--#   .col-sm-8.col-lg-6
--#     .card
--#       .card-header Editing Hole
--#       = render 'form'
-
-.map-container 
-    %div{id: "controls"}
-        %select{id: "shape-type", name: "shape-type"}
-            %option{value: "0"} Rock
-            %option{value: "1"} Fairway
-            %option{value: "2"} Rough
-            %option{value: "3"} Green
-            %option{value: "4"} Bunker
-            %option{value: "5"} Trees 
-            %option{value: "6"} Water 
-            %option{value: "7"} Tee
-        %button.btn.btn-primary{type: 'submit', id: 'submit'} Save
-    %div{id: "map"}
-    %div{id: "map2"}
+.row.justify-content-center
+  .col-sm-8.col-lg-6
+    .card
+      .card-header Edit Hole
+      = render 'form'

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # get '/holes/:id/edit', to: 'data#index'
   # post '/holes/:id/edit', to: 'data#create'
-  get '/holes/:id/edit', to: 'data#index'
+  # get '/holes/:id/edit', to: 'data#index'
 
   resources :data
   resources :user_holes

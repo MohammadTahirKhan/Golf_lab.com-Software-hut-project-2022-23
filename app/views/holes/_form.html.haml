@@ -2,10 +2,21 @@
 = simple_form_for(@hole) do |f|
   .card-body
     = f.input :hole_number
-    -# = f.input :is_beingEdited, wrapper_html: { class: 'mb-3' }
-    = f.input :user_id
-    = f.input :course_name
+    = f.input :course_name, disabled: true, label: "Course name (select using the map below)"
+    %p Draw out the features of the hole, using the shape types below
+    %select.form-select{id: "shape-type", name: "shape-type"}
+      %option{value: "fairway"} Fairway
+      %option{value: "green"} Green
+      %option{value: "rough"} Rough
+      %option{value: "rock"} Rock
+      %option{value: "bunker"} Bunker
+      %option{value: "water"} Water
+      %option{value: "tree"} Tree
+      %option{value: "tee"} Teeing Ground
+
+    #map
+
 
   .card-footer.d-flex
-    = f.button :submit, class: 'btn btn-primary'
+    = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole'
     = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'

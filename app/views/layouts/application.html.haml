@@ -16,10 +16,13 @@
     = csp_meta_tag
 
     = stylesheet_pack_tag 'styles', media: 'all'
-    = javascript_pack_tag 'application'
+
+    - if controller_name == 'holes' && (action_name == 'edit' || action_name == "new")
+      = javascript_pack_tag 'application_with_map'
+    - else
+      = javascript_pack_tag 'application'
 
   %body
-    -# - if request.fullpath != new_user_session_path && request.fullpath != new_user_registration_path && request.fullpath != new_user_password_path
     -unless !user_signed_in? && (controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords')
       %header
         %nav.navbar.navbar-expand-lg.navbar-light.bg-light
@@ -53,11 +56,11 @@
                     = link_to 'Log in', new_user_session_path, class: 'nav-link'
               
 
-    - if flash.present?
-      .container-fluid.flash-messages
-        - flash.each do |message_type, message|
-          - next unless message_type == 'alert' || message_type == 'notice'
-          .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
+      - if flash.present?
+        .container-fluid.flash-messages
+          - flash.each do |message_type, message|
+            - next unless message_type == 'alert' || message_type == 'notice'
+            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
 
       %main
         .container-fluid
