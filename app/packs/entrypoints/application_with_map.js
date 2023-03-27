@@ -1,2 +1,2 @@
 import "./application";
-import "../scripts/new_hole";
+import "../scripts/hole";
