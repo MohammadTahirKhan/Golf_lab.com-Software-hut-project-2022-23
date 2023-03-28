@@ -3,34 +3,43 @@ import "leaflet-draw";
 import Rails from "@rails/ujs";
 import {GeoSearchControl, OpenStreetMapProvider} from "leaflet-geosearch";
 
+const osm = new OpenStreetMapProvider();
 const searchControl = new GeoSearchControl({
-    provider: new OpenStreetMapProvider(),
+    provider: osm,
     style: 'bar',
     showMarker: false,
     searchLabel: 'Search for a golf course',
 });
-const davenportGolfClub = new L.LatLng(53.3513668,-2.0975508);
 const satelliteLayer = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
     attribution: 'Imagery &copy;2023 Bluesky, CNES / Airbus, Getmapping plc, Infoterra Ltd & Bluesky, Maxar Technologies, The GeoInformation Group',
     maxZoom: 21,
+    noWrap: true,
 })
+var fairways = new L.FeatureGroup(),
+    greens = new L.FeatureGroup(),
+    roughs = new L.FeatureGroup(), 
+    bunkers = new L.FeatureGroup(),
+    water = new L.FeatureGroup(),
+    rocks = new L.FeatureGroup(),
+    trees = new L.FeatureGroup(),
+    tees = new L.FeatureGroup();
 
-var map = L.map('map', {center: davenportGolfClub, zoom: 16, maxZoom: 21});
+var map = L.map('map', {center: [54, -10], zoom: 14, maxZoom: 21, minZoom: 4, maxBounds: [[-90, -180], [90, 180]]});
 
 satelliteLayer.addTo(map);
 L.control.scale({position: 'topright'}).addTo(map);
 map.addControl(searchControl);
+map.addLayer(fairways);
+map.addLayer(greens);
+map.addLayer(roughs);
+map.addLayer(trees);
+map.addLayer(water);
+map.addLayer(bunkers);
+map.addLayer(rocks);
+map.addLayer(tees);
 
-var fairways = new L.FeatureGroup(),
-    greens = new L.FeatureGroup(),
-    roughs = new L.FeatureGroup(), 
-    bunker = new L.FeatureGroup(),
-    water = new L.FeatureGroup(),
-    rock = new L.FeatureGroup(),
-    trees = new L.FeatureGroup(),
-    tees = new L.FeatureGroup();
 
-var options = {
+var drawOptions = {
     position: 'topleft',
     draw: {
         polyline: false,
@@ -48,47 +57,96 @@ var options = {
     }
 };
 
-var drawControl = new L.Control.Draw(options);
+var drawControl = new L.Control.Draw(drawOptions);
 function initialiseDrawControl(type, colour) {
-    options.edit.featureGroup = type;
-    options.draw.polygon.shapeOptions = {color: colour};
+    drawOptions.edit.featureGroup = type;
+    drawOptions.draw.polygon.shapeOptions = {color: colour};
     map.removeControl(drawControl);
     
-    drawControl = new L.Control.Draw(options);
+    drawControl = new L.Control.Draw(drawOptions);
     map.addControl(drawControl);
-}
+};
+initialiseDrawControl(fairways, 'rgb(190, 255, 190)');
 
 
 var shapeType = document.getElementById('shape-type');
 shapeType.onchange = function() {
     switch (shapeType.value) {
-        case '1':
+        case 'fairway':
             initialiseDrawControl(fairways, 'rgb(190, 255, 190)');
             break;
-        case '3':
+        case 'green':
             initialiseDrawControl(greens, 'rgb(0, 255, 0)');
             break;
-        case '4':
-            initialiseDrawControl(bunker, 'rgb(100, 255, 100)');
+        case 'rough':
+            initialiseDrawControl(roughs, 'rgb(0, 120, 60)');
             break;
-        case '6':
-            initialiseDrawControl(water, 'rgb(100, 255, 100)');
+        case 'rock':
+            initialiseDrawControl(rocks, 'rgb(50, 50, 50)');
             break;
-        case '2':
-            initialiseDrawControl(roughs, 'rgb(100, 255, 100)');
+        case 'bunker':
+            initialiseDrawControl(bunkers, 'rgb(255, 255, 80)');
             break;
-        case '0':
-            initialiseDrawControl(rock, 'rgb(255, 0, 0)');
+        case 'water':
+            initialiseDrawControl(water, 'rgb(0, 0, 255)');
             break;
-        case '6':
-            initialiseDrawControl(trees, 'rgb(255, 0, 0)');
+        case 'tree':
+            initialiseDrawControl(trees, 'rgb(100, 50, 0)');
             break;
-        case '7':
+        case 'tee':
             initialiseDrawControl(tees, 'rgb(255, 255, 255)');
     }
+};
+
+map.on('draw:created', function (e) {
+    var layer = e.layer;
+
+    switch (shapeType.value) {
+        case 'fairway':
+            fairways.addLayer(layer);
+            break;
+        case 'green':
+            greens.addLayer(layer);
+            break;
+        case 'rough':
+            roughs.addLayer(layer);
+            break;
+        case 'rock':
+            rocks.addLayer(layer);
+            break;
+        case 'bunker':
+            bunkers.addLayer(layer);
+            break;
+        case 'water':
+            water.addLayer(layer);
+            break;
+        case 'tree':
+            trees.addLayer(layer);
+            break;     
+        case 'tee':
+            tees.addLayer(layer);
+    }
+});
+
+var courseName = document.getElementById("hole_course_name");
+// For edit page, if course name is already filled in, search for it and centre map
+window.onload = function() {
+    if (courseName.value != "") {
+        var results = osm.search({query: courseName.value}).then(function(results) {
+            searchControl.centerMap(results[0]);
+        });
+    };
+};
+
+// When a course is selected from the search bar, fill in the course name field and centre map
+searchControl.onSubmit = function(result) {
+    var searchedCourseName = result.data.label.split(",")[0];
+    courseName.value = searchedCourseName;
+    searchControl.centerMap(result.data);
 }
 
-var button = document.getElementById('submit')
+
+// Form submission
 
 function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
     let form = new FormData()
@@ -105,8 +163,9 @@ function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
         data: form,
     })
 }
-button.onclick = function () {
 
+var submitButton = document.getElementById('submit-hole');
+submitButton.onclick = function () {
     var hole_id = document.getElementById("holeid").value
    
     if (fairways.getLayers().length > 0 ){
@@ -119,11 +178,10 @@ button.onclick = function () {
            } 
            sendData(xCoordinates,yCoordinates,hole_id, 'fairway')
         })
+    };
 
-    }
-
-    if (bunker.getLayers().length > 0) {
-        bunker.eachLayer(function (layer) {
+    if (bunkers.getLayers().length > 0) {
+        bunkers.eachLayer(function (layer) {
             let xCoordinates = []
             let yCoordinates = []
             for (let i = 0; i < layer.getLatLngs()[0].length; i++) {
@@ -132,11 +190,10 @@ button.onclick = function () {
             }
             sendData(xCoordinates, yCoordinates,hole_id, 'bunker')
         })
+    };
 
-    }
-
-    if (rock.getLayers().length > 0) {
-        rock.eachLayer(function (layer) {
+    if (rocks.getLayers().length > 0) {
+        rocks.eachLayer(function (layer) {
             let xCoordinates = []
             let yCoordinates = []
             for (let i = 0; i < layer.getLatLngs()[0].length; i++) {
@@ -145,9 +202,7 @@ button.onclick = function () {
             }
             sendData(xCoordinates, yCoordinates,hole_id,'rock')
         })
-        
-
-    }
+    };
 
     if (greens.getLayers().length > 0) {
         greens.eachLayer(function (layer) {
@@ -159,8 +214,7 @@ button.onclick = function () {
             }
             sendData(xCoordinates, yCoordinates,hole_id, 'green')
         })
-
-    }
+    };
 
     if (roughs.getLayers().length > 0) {
         roughs.eachLayer(function (layer) {
@@ -172,8 +226,7 @@ button.onclick = function () {
             }
             sendData(xCoordinates, yCoordinates,hole_id, 'rough')
         })
-        
-    }
+    };
 
     if (trees.getLayers().length > 0) {
         trees.eachLayer(function (layer) {
@@ -185,8 +238,7 @@ button.onclick = function () {
             }
             sendData(xCoordinates, yCoordinates,hole_id, 'tree')
         })
-
-    }
+    };
 
     if (water.getLayers().length > 0) {
         water.eachLayer(function (layer) {
@@ -198,8 +250,7 @@ button.onclick = function () {
             }
             sendData(xCoordinates, yCoordinates, hole_id, 'water')
         })
-
-    }
+    };
 
     if (tees.getLayers().length > 0) {
         tees.eachLayer(function (layer) {
@@ -211,59 +262,5 @@ button.onclick = function () {
             }
             sendData(xCoordinates, yCoordinates, hole_id, 'tee')
         })
-
-    }
-}
-
-
-map.on('draw:created', function (e) {
-    var layer = e.layer;
-
-    switch (shapeType.value) {
-        case '1':
-            fairways.addLayer(layer);
-            break;
-        case '3':
-            greens.addLayer(layer);
-            break;
-        case '2':
-            roughs.addLayer(layer);
-            break;
-        case '0':
-            rock.addLayer(layer);
-            break;
-        case '4':
-            bunker.addLayer(layer);
-            break;
-        case '6':
-            water.addLayer(layer);
-            break;
-        case '5':
-            trees.addLayer(layer);
-            break;     
-        case '7':
-            tees.addLayer(layer);
-    }
-
-});
-
-
-
-map.addLayer(fairways);
-map.addLayer(greens);
-map.addLayer(roughs);
-map.addLayer(trees);
-map.addLayer(water);
-map.addLayer(bunker);
-map.addLayer(rock);
-map.addLayer(tees);
-
-initialiseDrawControl(rock, 'rgb(190, 255, 190)');
-
-
-var resultbox = document.getElementById("result");
-searchControl.onSubmit = function(result) {
-    resultbox.innerHTML = result.data.label;
-    map.flyTo([result.data.y, result.data.x])
-    console.log(result);
-}
+    };
+};

@@ -16,42 +16,58 @@
     = csp_meta_tag
 
     = stylesheet_pack_tag 'styles', media: 'all'
-    = javascript_pack_tag 'application'
+
+    - if controller_name == 'holes' && (action_name == 'edit' || action_name == "new")
+      = javascript_pack_tag 'application_with_map'
+    - else
+      = javascript_pack_tag 'application'
 
   %body
-    - unless action_name == "new" || action_name == "create"
-      %header.navbar.navbar-expand-lg.bg-light.mb-3
-        .container-fluid
-          = link_to '#', class: 'navbar-brand' do
-            = image_pack_tag 'logo.png', height: 40
-          %button.navbar-toggler{ type: :button, data: { bs_toggle: :collapse, bs_target: '#navbar-content' }, aria: { controls: 'navbar-content', expanded: 'false', label: 'Toggle navigation' } }
-            %span.navbar-toggler-icon
-          #navbar-content.navbar-collapse.collapse
-            %nav.navbar-nav
-              = link_to '/', class: 'active nav-link' do
-                %i.bi-house-fill
-                Home
-              = link_to '/holes', class: 'active nav-link' do
-                -# %i.bi-house-fill
-                Holes Page
-            %nav.navbar-nav.ms-auto
-              .nav-item.dropdown
-                - if user_signed_in?
-                  = link_to current_user.email, '#', class: 'nav-link dropdown-toggle', role: 'button', data: { bs_toggle: 'dropdown' }, aria: { expanded: 'false' }
-                  %nav.dropdown-menu.dropdown-menu-md-end
-                    = link_to 'Log out', destroy_user_session_path, class: 'dropdown-item', method: :delete
-                - else
-                  = link_to 'Log in', new_user_session_path, class: 'nav-link'
+    -unless !user_signed_in? && (controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords')
+      %header
+        %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+          .container-fluid
+            = link_to '/', class: 'navbar-brand' do
+              -# = image_pack_tag 'logo.png', height: 40
+              Team 31
             
+            %button.navbar-toggler{type: "button", data: {bs_toggle: "collapse", bs_target: "#navbarToggle"}, aria: {controls: "navbarToggle", expanded: "false", label: "Toggle navigation"}}
+              %span.navbar-toggler-icon
 
-    -# - if flash.present?
-    -#   .container-fluid.flash-messages
-    -#     - flash.each do |message_type, message|
-    -#       - next unless message_type == 'alert' || message_type == 'notice'
-    -#       .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
+            #navbarToggle.collapse.navbar-collapse
+              %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                %li.nav-item
+                  = link_to 'Home', root_path, class: 'nav-link'
+                - if user_signed_in?
+                  %li.nav-item
+                    = link_to 'Holes Page', holes_path, class: 'nav-link'
+              %ul.navbar-nav
+                - if user_signed_in?
+                  %li.nav-item.dropdown
+                    = link_to current_user.email, '#', class: 'nav-link dropdown-toggle btn', role: 'button', data: {bs_toggle: 'dropdown'}, aria: {expanded: 'false'}
+                    %ul.dropdown-menu.dropdown-menu-end
+                      %li
+                        = link_to 'Profile', edit_user_registration_path, class: 'dropdown-item'
+                      %li
+                        = link_to 'Log out', destroy_user_session_path, class: 'dropdown-item', method: :delete, onclick: "return confirm('Are you sure?')", style: 'color: red;'
+            
+                - else 
+                  %li.nav-item
+                    = link_to 'Log in', new_user_session_path, class: 'nav-link'
+              
 
-    %main
-      .container-fluid
+      - if flash.present?
+        .container-fluid.flash-messages
+          - flash.each do |message_type, message|
+            - next unless message_type == 'alert' || message_type == 'notice'
+            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
+
+      %main
+        .container-fluid
+          = yield
+
+    - else
+      %main
         = yield
 
     %footer

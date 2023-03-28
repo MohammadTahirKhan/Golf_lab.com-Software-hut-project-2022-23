@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
+  devise_scope :user do
+    get 'users/sign_out' => "devise/sessions#destroy"
+    patch 'users/edit' => "devise/registrations#edit"
+  end
 
   # get '/holes/:id/edit', to: 'data#index'
   # post '/holes/:id/edit', to: 'data#create'
-  get '/holes/:id/edit', to: 'data#index'
+  # get '/holes/:id/edit', to: 'data#index'
 
   resources :data
   resources :user_holes
