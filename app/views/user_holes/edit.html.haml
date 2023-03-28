@@ -3,3 +3,6 @@
     .card
       .card-header Editing User Hole
       = render 'form'
+      %input#xCoordinates{:name => "holeid",:value => @xCoordinates}
+      %input#yCoordinates{:name => "holeid", :value => @yCoordinates}
+      %input#terrain_type{:name => "holeid", :value => @terrain_type}

@@ -3,7 +3,7 @@ class UserHolesController < ApplicationController
 
   # GET /user_holes
   def index
-    @user_holes = UserHole.all
+    @user_holes = UserHole.where(user_id: current_user.id)
   end
 
   # GET /user_holes/1
@@ -12,11 +12,23 @@ class UserHolesController < ApplicationController
 
   # GET /user_holes/new
   def new
-    @user_hole = UserHole.new
+    @holes = Hole.all
   end
 
   # GET /user_holes/1/edit
   def edit
+    @data = Datum.where(hole_id: params[:id])
+    @xCoordinates = []
+    @yCoordinates = []
+    @terrain_type = []
+    
+    @data.each do |data| 
+      @xCoordinates.append(data.xCoordinates)
+      @yCoordinates.append(data.yCoordinates)
+      @terrain_type.append(data.terrain_type)
+    end
+
+    puts @data
   end
 
   # POST /user_holes
@@ -48,11 +60,11 @@ class UserHolesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_hole
-      @user_hole = UserHole.find(params[:id])
+      @user_hole = Hole.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def user_hole_params
-      params.require(:user_hole).permit(:hole_number, :user_id, :course_id)
+      params.require(:user_hole).permit(:hole_number, :user_id)
     end
 end
