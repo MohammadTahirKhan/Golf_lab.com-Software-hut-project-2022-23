@@ -38,9 +38,12 @@
               %ul.navbar-nav.me-auto.mb-2.mb-lg-0
                 %li.nav-item
                   = link_to 'Home', root_path, class: 'nav-link'
+               
                 - if user_signed_in?
                   %li.nav-item
                     = link_to 'Holes Page', holes_path, class: 'nav-link'
+                  %li.nav-item
+                    = link_to 'Download CSV Database', export_path, class: 'nav-link'
               %ul.navbar-nav
                 - if user_signed_in?
                   %li.nav-item.dropdown

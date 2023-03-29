@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :holes
   resources :courses
 
+  get '/export', to: 'export#index'
   post '/holes/:id/edit', to: 'data#create'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
