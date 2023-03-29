@@ -1,1 +1,27 @@
-    
+%div#home_whole 
+    %div#home
+        %div#home-content
+            %h1#title Group 31
+            %h2#title2 Map, Modify and Optimise your favourite golf courses. A place for true golfers.
+            %div#home-buttons
+                %button.btn.btn-primary.form-btn{type: "button" , id: "explore", onclick: "location.href='#features'"} Explore
+
+    %div#features
+        %h1#featr Know more about us
+        %h2#title_featr Features
+        %div#features-content
+            %div#feature
+                %h2#feature-title Create Courses
+                %i.fas.fa-map-marked-alt.fa-5x
+                %p#feature-text Choose and create your own courses using our map.
+            %div#feature
+                %h2#feature-title Modify Courses
+                %p#feature-text Modify or edit the courses you have created.
+            %div#feature
+                %h2#feature-title Optimise Courses
+                %p#feature-text Optimise your courses to play the best possible round.
+
+
+    %div#signup
+        %h1#signup Sign Up Now for the true golfing experience
+        %button.btn.btn-primary.form-btn{type: "button" ,onclick: "location.href='/users/sign_up'" , id:"sign"} Sign Up
