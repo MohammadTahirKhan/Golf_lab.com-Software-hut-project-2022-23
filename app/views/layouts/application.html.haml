@@ -28,8 +28,7 @@
         %nav.navbar.navbar-expand-lg.navbar-light.bg-light
           .container-fluid
             = link_to '/', class: 'navbar-brand' do
-              -# = image_pack_tag 'logo.png', height: 40
-              Team 31
+              = image_pack_tag 'logo.png', height: 50
             
             %button.navbar-toggler{type: "button", data: {bs_toggle: "collapse", bs_target: "#navbarToggle"}, aria: {controls: "navbarToggle", expanded: "false", label: "Toggle navigation"}}
               %span.navbar-toggler-icon
@@ -38,7 +37,6 @@
               %ul.navbar-nav.me-auto.mb-2.mb-lg-0
                 %li.nav-item
                   = link_to 'Home', root_path, class: 'nav-link'
-               
                 - if user_signed_in?
                   %li.nav-item
                     = link_to 'Holes Page', holes_path, class: 'nav-link'
