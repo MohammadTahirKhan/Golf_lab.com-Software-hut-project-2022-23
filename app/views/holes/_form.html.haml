@@ -2,7 +2,7 @@
 = simple_form_for(@hole) do |f|
   .card-body
     = f.input :hole_number
-    = f.input :course_name, disabled: true, label: "Course name (select using the map below)"
+    = f.input :course_name, readonly: true, label: "Course name (select using the map below)"
     %p Draw out the features of the hole, using the shape types below
     %select.form-select{id: "shape-type", name: "shape-type"}
       %option{value: "fairway"} Fairway

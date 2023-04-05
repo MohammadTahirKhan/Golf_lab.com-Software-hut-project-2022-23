@@ -7,9 +7,9 @@
   %table.table
     %thead
       %tr
-        %th Hole number
-        %th Is beingedited
-        %th User
+        %th Hole Number
+        %th Being Edited?
+        %th Creator
         %th Course Name
         %th
     %tbody
@@ -17,11 +17,10 @@
         %tr
           %td= hole.hole_number
           %td= hole.is_beingEdited
-          %td= hole.user_id
+          %td= hole.user.email
           %td= hole.course_name
           %td
             .btn-toolbar.float-end
               = link_to 'Show', hole, class: 'btn btn-outline-secondary btn-sm'
-              -# = link_to 'Edit', edit_hole_path(hole), class: 'btn btn-outline-secondary ms-1 btn-sm'
               = link_to 'Edit', edit_hole_path(hole), class: 'btn btn-outline-secondary ms-1 btn-sm'
               = link_to 'Destroy', hole, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger ms-1 btn-sm'
