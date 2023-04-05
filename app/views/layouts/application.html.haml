@@ -61,7 +61,10 @@
         .container-fluid.flash-messages
           - flash.each do |message_type, message|
             - next unless message_type == 'alert' || message_type == 'notice'
-            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
+            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }
+              %button.close{type: "button", data: {bs_dismiss: "alert"}, aria: {label: "Close"}}
+                &times;
+              = message
 
       %main
         - unless action_name == 'home'

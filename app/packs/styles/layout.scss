@@ -28,3 +28,14 @@ body {
     margin-top: auto;
   }
 }
+
+
+.flash-messages {
+  position: fixed;
+  z-index: 100;
+
+  .close {
+    background-color: transparent;
+    border: 0;
+  }
+}
