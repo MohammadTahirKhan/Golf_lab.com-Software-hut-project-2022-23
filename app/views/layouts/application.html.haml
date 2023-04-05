@@ -24,7 +24,7 @@
 
   %body
     -unless !user_signed_in? && (controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords')
-      %header
+      %header{class: ("home-header" if action_name == 'home')}
         %nav.navbar.navbar-expand-lg.navbar-light.bg-light
           .container-fluid
             = link_to '/', class: 'navbar-brand' do
@@ -64,7 +64,10 @@
             .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }= message
 
       %main
-        .container-fluid
+        - unless action_name == 'home'
+          .container-fluid
+            = yield
+        - else
           = yield
 
     - else
