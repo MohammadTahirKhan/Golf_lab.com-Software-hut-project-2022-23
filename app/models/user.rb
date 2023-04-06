@@ -8,6 +8,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  user_role              :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -19,6 +20,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  enum :user_role, {admin: 0, map_creator: 1, user: 2}
   has_many :user_holes
   has_many :holes
   devise :database_authenticatable, :registerable,
