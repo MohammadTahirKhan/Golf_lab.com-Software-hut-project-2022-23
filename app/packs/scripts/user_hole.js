@@ -4,11 +4,6 @@ import Rails from "@rails/ujs";
 import {OpenStreetMapProvider} from "leaflet-geosearch";
 
 const osm = new OpenStreetMapProvider();
-const satelliteLayer = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
-    attribution: 'Imagery &copy;2023 Bluesky, CNES / Airbus, Getmapping plc, Infoterra Ltd & Bluesky, Maxar Technologies, The GeoInformation Group',
-    maxZoom: 21,
-    noWrap: true,
-});
 var fairways = new L.FeatureGroup(),
     greens = new L.FeatureGroup(),
     roughs = new L.FeatureGroup(), 
@@ -20,7 +15,6 @@ var fairways = new L.FeatureGroup(),
 
 var map = L.map('map', {center: [54, -10], zoom: 14, maxZoom: 21, minZoom: 4, maxBounds: [[-90, -180], [90, 180]]});
 
-satelliteLayer.addTo(map);
 L.control.scale({position: 'topright'}).addTo(map);
 map.addLayer(fairways);
 map.addLayer(greens);

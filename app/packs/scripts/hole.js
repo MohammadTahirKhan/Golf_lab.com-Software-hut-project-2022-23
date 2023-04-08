@@ -166,17 +166,17 @@ function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
 
 var submitButton = document.getElementById('submit-hole');
 submitButton.onclick = function () {
-    var hole_id = document.getElementById("holeid").value
+    var hole_id = document.getElementById("hole_hole_number").value
    
     if (fairways.getLayers().length > 0 ){
         fairways.eachLayer(function(layer){
             let xCoordinates = []
             let yCoordinates = []
-           for(let i =0; i <  layer.getLatLngs()[0].length; i++){
-                xCoordinates.push(layer.getLatLngs()[0][i].lat)
-                yCoordinates.push(layer.getLatLngs()[0][i].lng)
-           } 
-           sendData(xCoordinates,yCoordinates,hole_id, 'fairway')
+            for(let i =0; i <  layer.getLatLngs()[0].length; i++){
+                    xCoordinates.push(layer.getLatLngs()[0][i].lat)
+                    yCoordinates.push(layer.getLatLngs()[0][i].lng)
+            } 
+            sendData(xCoordinates,yCoordinates,hole_id, 'fairway');
         })
     };
 

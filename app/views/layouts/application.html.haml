@@ -19,7 +19,7 @@
 
     - if controller_name == 'holes' && (action_name == 'edit' || action_name == "new")
       = javascript_pack_tag 'application_with_hole'
-    - elsif controller_name == 'user_holes' && (action_name == 'edit' || action_name == "new")
+    - elsif controller_name == 'user_holes' && (action_name == 'edit')
       = javascript_pack_tag 'application_with_user_hole'
     - else
       = javascript_pack_tag 'application'
