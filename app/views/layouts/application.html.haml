@@ -48,6 +48,7 @@
               %ul.navbar-nav.me-auto.mb-2.mb-lg-0
                 %li.nav-item
                   = link_to 'Home', root_path, class: 'nav-link'
+                - if user_signed_in?
                   %li.nav-item
                     = link_to 'Holes Page', holes_path, class: 'nav-link'
                   %li.nav-item
@@ -56,12 +57,26 @@
                     = link_to 'Download CSV Database', export_path, class: 'nav-link'
               %ul.navbar-nav
                 %li.nav-item.dropdown
+                - if user_signed_in?
                   = link_to current_user.email, '#', class: 'nav-link dropdown-toggle btn', role: 'button', data: {bs_toggle: 'dropdown'}, aria: {expanded: 'false'}
                   %ul.dropdown-menu.dropdown-menu-end
                     %li
                       = link_to 'Edit Profile', edit_user_registration_path, class: 'dropdown-item'
                     %li
                       = link_to 'Log out', destroy_user_session_path, class: 'dropdown-item', method: :delete, onclick: "return confirm('Are you sure?')", style: 'color: red;'
+                - else
+                  = link_to 'Log in', new_user_session_path, class: 'nav-link btn'
+                  = link_to 'Sign up', new_user_registration_path, class: 'nav-link btn'
+              
+
+      - if flash.present?
+        .container-fluid.flash-messages
+          - flash.each do |message_type, message|
+            - next unless message_type == 'alert' || message_type == 'notice'
+            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }
+              %button.close{type: "button", data: {bs_dismiss: "alert"}, aria: {label: "Close"}}
+                &times;
+              = message
 
       %main
         - unless action_name == 'home'

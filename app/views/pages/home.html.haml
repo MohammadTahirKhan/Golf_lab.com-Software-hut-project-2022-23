@@ -13,7 +13,8 @@
             %div#feature
                 %h2#feature-title Create Courses
                 %p#feature-text Choose and create your own courses using our map. 
-                = link_to "here", holes_path
+                - if user_signed_in?
+                    = link_to "here", holes_path
             %div#feature
                 %h2#feature-title Modify Courses
                 %p#feature-text Modify or edit the courses you have created.
