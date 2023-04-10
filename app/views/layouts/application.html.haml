@@ -25,6 +25,15 @@
       = javascript_pack_tag 'application'
 
   %body
+    - if flash.present?
+      .container-fluid.flash-messages
+        - flash.each do |message_type, message|
+          - next unless message_type == 'alert' || message_type == 'notice'
+          .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }", onclick: "removeFlashMsg()" }
+            %button.close{type: "button", data: {bs_dismiss: "alert"}, aria: {label: "Close"}}
+              &times;
+            = message
+
     -unless !user_signed_in? && (controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords')
       %header{class: ("home-header" if action_name == 'home')}
         %nav.navbar.navbar-expand-lg.navbar-light.bg-light
@@ -53,16 +62,6 @@
                       = link_to 'Edit Profile', edit_user_registration_path, class: 'dropdown-item'
                     %li
                       = link_to 'Log out', destroy_user_session_path, class: 'dropdown-item', method: :delete, onclick: "return confirm('Are you sure?')", style: 'color: red;'
-              
-
-      - if flash.present?
-        .container-fluid.flash-messages
-          - flash.each do |message_type, message|
-            - next unless message_type == 'alert' || message_type == 'notice'
-            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }
-              %button.close{type: "button", data: {bs_dismiss: "alert"}, aria: {label: "Close"}}
-                &times;
-              = message
 
       %main
         - unless action_name == 'home'
@@ -78,4 +77,4 @@
     %footer
       .container-fluid
         .d-flex.p-3
-          Footer text
+          &copy; 2031 - GolfLab.com
