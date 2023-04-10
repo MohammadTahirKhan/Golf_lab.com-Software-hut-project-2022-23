@@ -26,10 +26,10 @@
 
   %body
     - if flash.present?
-      .container-fluid.flash-messages
+      .container-fluid.flash-messages{onclick: "removeFlashMsg()"}
         - flash.each do |message_type, message|
           - next unless message_type == 'alert' || message_type == 'notice'
-          .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }", onclick: "removeFlashMsg()" }
+          .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }"}
             %button.close{type: "button", data: {bs_dismiss: "alert"}, aria: {label: "Close"}}
               &times;
             = message
@@ -68,16 +68,6 @@
                   = link_to 'Log in', new_user_session_path, class: 'nav-link btn'
                   = link_to 'Sign up', new_user_registration_path, class: 'nav-link btn'
               
-
-      - if flash.present?
-        .container-fluid.flash-messages
-          - flash.each do |message_type, message|
-            - next unless message_type == 'alert' || message_type == 'notice'
-            .alert{ class: "alert-#{ message_type == 'notice' ? 'success' : 'danger' }" }
-              %button.close{type: "button", data: {bs_dismiss: "alert"}, aria: {label: "Close"}}
-                &times;
-              = message
-
       %main
         - unless action_name == 'home'
           .container-fluid
