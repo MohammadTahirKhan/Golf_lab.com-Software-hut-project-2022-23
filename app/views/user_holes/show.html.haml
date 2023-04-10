@@ -2,15 +2,15 @@
   .col-sm-8.col-lg-6
     .card
       .card-header
-        User Hole details
+        Hole details
       .card-body
         %dl.row.mb-0
           %dt.col-md-3 Hole number:
           %dd.col-md-9= @user_hole.hole_number
           %dt.col-md-3 User:
-          %dd.col-md-9= @user_hole.user_id
-          %dt.col-md-3 Course:
-          %dd.col-md-9= @user_hole.course_id
+          %dd.col-md-9= @user_hole.user.email
+          %dt.col-md-3 Course Name:
+          %dd.col-md-9= @user_hole.hole.course_name
       .card-footer.d-flex
         = link_to 'Edit', edit_user_hole_path(@user_hole), class: 'btn btn-link'
         = link_to 'Back', user_holes_path, class: 'btn btn-link ms-auto'

@@ -13,6 +13,7 @@ class UserHolesController < ApplicationController
   # GET /user_holes/new
   def new
     @holes = Hole.all
+    @user_hole = UserHole.new
   end
 
   # GET /user_holes/1/edit
@@ -33,8 +34,13 @@ class UserHolesController < ApplicationController
 
   # POST /user_holes
   def create
-    @user_hole = UserHole.new(user_hole_params)
-
+    holeNumber = Hole.where(id: user_hole_params[:hole_id]).first.hole_number
+    @user_hole = UserHole.new(
+      hole_id: user_hole_params[:hole_id], 
+      user_id: current_user.id, 
+      hole_number: holeNumber
+    )
+    
     if @user_hole.save
       redirect_to @user_hole, notice: "User hole was successfully created."
     else
@@ -60,11 +66,11 @@ class UserHolesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_hole
-      @user_hole = Hole.find(params[:id])
+      @user_hole = UserHole.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def user_hole_params
-      params.require(:user_hole).permit(:hole_number, :user_id)
+      params.require(:user_hole).permit(:hole_id, :hole_number, :user_id)
     end
 end

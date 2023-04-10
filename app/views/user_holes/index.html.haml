@@ -2,7 +2,7 @@
   .card-header.d-flex.align-items-center
     %span Listing User Holes
 
-    = link_to 'New User hole', new_user_hole_path, class: 'btn btn-outline-secondary ms-auto'
+    = link_to 'New User Hole', new_user_hole_path, class: 'btn btn-outline-secondary ms-auto'
 
   %table.table
     %thead
@@ -16,6 +16,7 @@
         %tr
           %td= user_hole.hole_number
           %td= user_hole.user_id
+          %td= user_hole.hole.course_name
           %td
             .btn-toolbar.float-end
               = link_to 'Show', user_hole, class: 'btn btn-outline-secondary btn-sm'

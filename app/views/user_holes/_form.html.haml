@@ -1,10 +1,13 @@
 -# frozen_string_literal: true
 = simple_form_for(@user_hole) do |f|
   .card-body
-    = f.input :hole_number
-    = f.input :course_name, readonly: true, label: "Course name"
+    %h5
+      Hole 
+      = @user_hole.hole_number
+      at 
+      = @user_hole.hole.course_name
     %p Draw out the features of the hole, using the shape types below
-    %select.form-select{id: "shape-type", name: "shape-type"}
+    %select.form-select{id: "shape-type"}
       %option{value: "fairway"} Fairway
       %option{value: "green"} Green
       %option{value: "rough"} Rough
@@ -19,4 +22,4 @@
 
   .card-footer.d-flex
     = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole'
-    = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'
+    = link_to 'Back', user_holes_path, class: 'btn btn-link ms-auto'
