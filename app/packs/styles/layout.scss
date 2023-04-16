@@ -20,6 +20,31 @@ body {
     }
   }
 
+  // Searchbar suggestions
+  #ui-id-1 {  
+    padding: 0;
+    width: 20em;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    z-index: 1000;
+  
+    li {
+      cursor: pointer;
+      padding: 0.5em;
+      border-top: 1px solid #ddd;
+    }
+  
+    li:hover {
+      background-color: #eee;
+    }
+  }
+
+  .ui-helper-hidden-accessible {
+    display: none;
+  }
+
+
   #shape-type {
     margin-bottom: 1rem;
   }
@@ -43,3 +68,4 @@ body {
     border: 0;
   }
 }
+
