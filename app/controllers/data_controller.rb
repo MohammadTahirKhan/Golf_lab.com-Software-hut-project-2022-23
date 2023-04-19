@@ -26,10 +26,9 @@ class DataController < ApplicationController
 
   # POST /data
   def create
+
+    
    # params[:datum][:terrain_type] = Datum.terrain[params[:datum][:terrain_type]]
-    
-    
-   
     @datum = Datum.new(datum_params)
     
     

@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   resources :courses
 
   get '/export', to: 'export#index'
-  post '/holes/:id/edit', to: 'data#create'
+  post '/holes/new' , to: 'holes#create'
+  get '/draw' , to: 'holes#drawholes'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

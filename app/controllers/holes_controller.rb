@@ -19,9 +19,16 @@ class HolesController < ApplicationController
   def edit
   end
 
-  # POST /holes
+  def drawholes
+    @hole = Hole.new 
+  end
+
+  # POST /holes/new
   def create
     @hole = Hole.new(hole_params)
+    @hole.user_id = current_user.id
+    
+    
     
     if @hole.save
       id  = @hole.id
@@ -55,6 +62,6 @@ class HolesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hole_params
-      params.require(:hole).permit(:hole_number, :user_id, :course_name)
+      params.require(:hole).permit(:hole_number,:course_name)
     end
 end
