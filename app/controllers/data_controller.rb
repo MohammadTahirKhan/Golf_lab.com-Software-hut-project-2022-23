@@ -27,7 +27,7 @@ class DataController < ApplicationController
 
 
 
-  # POST /data/new
+  # POST /data
   def create
     @datum = Datum.new(datum_params)    
     if @datum.save

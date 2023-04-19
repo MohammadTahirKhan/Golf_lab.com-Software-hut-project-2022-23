@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # post '/holes/:id/edit', to: 'data#create'
   # get '/holes/:id/edit', to: 'data#index'
   post '/data/new' , to: 'data#create'
+  post '/data', to: redirect('/holes')
+  
   resources :data
   resources :user_holes
   resources :holes
