@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # get '/holes/:id/edit', to: 'data#index'
   # post '/holes/:id/edit', to: 'data#create'
   # get '/holes/:id/edit', to: 'data#index'
-
+  post '/data/new' , to: 'data#create'
   resources :data
   resources :user_holes
   resources :holes
@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   get '/export', to: 'export#index'
   post '/holes/new' , to: 'holes#create'
-  get '/draw' , to: 'holes#drawholes'
+ 
+  
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

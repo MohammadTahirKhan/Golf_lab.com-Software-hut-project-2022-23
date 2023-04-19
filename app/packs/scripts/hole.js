@@ -140,15 +140,16 @@ map.on("draw:created", function (e) {
 });
 
 
-// var courseName = document.getElementById("hole_course_name");
-// // For edit page, if course name is already filled in, search for it and centre map
-// window.onload = function() {
-//     if (courseName.value != "") {
-//         var results = osm.search({query: courseName.value}).then(function(results) {
-//             searchControl.centerMap(results[0]);
-//         });
-//     };
-// };
+var courseName = document.getElementById("course");
+// For edit page, if course name is already filled in, search for it and centre map
+window.onload = function() {
+    if (courseName.value != "") {
+        var results = osm.search({query: courseName.value}).then(function(results) {
+            console.log(results)
+            searchControl.centerMap(results[0]);
+        });
+    };
+};
 
 
 
@@ -164,7 +165,7 @@ function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
     form.append("datum[terrain_type]", terrain_type);
 
     Rails.ajax({
-        url: "/data",
+        url: "/data/new",
         type: "post",
         data: form
     });
@@ -172,8 +173,8 @@ function sendData(xCoordinates,yCoordinates,hole_id, terrain_type){
 
 var submitButton = document.getElementById("submit-hole");
 submitButton.onclick = function () {
-    var hole_id = document.getElementById("hole_hole_number").value
-   
+    var hole_id = document.getElementById("hole").value
+    console.log('sdnflksnfksnfkdsnkf')
     if (fairways.getLayers().length > 0 ){
         fairways.eachLayer(function(layer){
             var xCoordinates = [];

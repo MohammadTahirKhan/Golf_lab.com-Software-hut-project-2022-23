@@ -1,28 +1,23 @@
--# -# .row.justify-content-center
--# -#   .col-sm-8.col-lg-6
--# -#     .card
--# -#       .card-header New Datum
--# -#       = render 'form'
+= simple_form_for(@datum) do |f|
+  .card-body
+    %input#course{:name => "course", :type => "text", :value => @course_name}
+    %input#hole{:name => "hole", :type => "text", :value => @hole_id}
+    %p Draw out the features of the hole, using the shape types below
+    %select.form-select{id: "shape-type"}
+      %option{value: "fairway"} Fairway
+      %option{value: "green"} Green
+      %option{value: "rough"} Rough
+      %option{value: "rock"} Rock
+      %option{value: "bunker"} Bunker
+      %option{value: "water"} Water
+      %option{value: "tree"} Tree
+      %option{value: "tee"} Teeing Ground
 
--# .map-container 
--#     %div{id: "controls"}
--#         %input#course_name{:name => "course_name", :type => "text" ,}
--#         -# %input#2name{:name => "2name", :type => "text" ,:value => @hole.id}
+    #map
 
-.map-container 
-    %div{id: "controls"}
-        %input#lname{:name => "lname", :type => "text" ,:value => "bur"}/
-        %button#button{:type => "button", :remote => true} Click Me!
 
-        %select{id: "shape-type", name: "shape-type"}
-            %option{value: "fairway"} Fairway
-            %option{value: "green"} Green
-            %option{value: "rough"} Rough
-            %option{value: "hazard"} Hazard
-            %option{value: "tee"} Teeing Ground
+  .card-footer.d-flex
+    = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole' 
+    = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'
 
--#         %button.btn.btn-primary{type: 'submit'} Save
--#     %div{id: "map"}
--#     %div{id: "map2"}
--#     = render 'form'
     

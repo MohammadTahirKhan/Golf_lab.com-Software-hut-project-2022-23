@@ -19,20 +19,14 @@ class HolesController < ApplicationController
   def edit
   end
 
-  def drawholes
-    @hole = Hole.new 
-  end
-
+ 
   # POST /holes/new
   def create
     @hole = Hole.new(hole_params)
     @hole.user_id = current_user.id
-    
-    
-    
     if @hole.save
       id  = @hole.id
-      redirect_to @hole, notice: "Hole was successfully created."
+      redirect_to new_datum_path(:id => id,:course_name => @hole.course_name), notice: "Hole was successfully created."
     else
       render :new, status: :unprocessable_entity
     end

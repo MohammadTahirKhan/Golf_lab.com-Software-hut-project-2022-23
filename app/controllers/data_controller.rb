@@ -17,25 +17,24 @@ class DataController < ApplicationController
   # GET /data/new
   def new
     @datum = Datum.new()
-   
+    @course_name = params[:course_name]
+    @hole_id = params[:id]
   end
 
   # GET /data/1/edit
   def edit
   end
 
-  # POST /data
-  def create
 
-    
-   # params[:datum][:terrain_type] = Datum.terrain[params[:datum][:terrain_type]]
-    @datum = Datum.new(datum_params)
-    
-    
+
+  # POST /data/new
+  def create
+    @datum = Datum.new(datum_params)    
     if @datum.save
-    
-      redirect_to @datum,notice: "Datum was successfully created."
+      puts "Saved"
+      redirect_to '/',notice: "Datum was successfully created."
     else
+      puts "GG"
       puts @datum.errors.inspect
       render :new, status: :unprocessable_entity
     end
