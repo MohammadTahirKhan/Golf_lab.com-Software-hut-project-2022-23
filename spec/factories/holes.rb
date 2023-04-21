@@ -20,9 +20,10 @@
 #
 FactoryBot.define do
   factory :hole do
+    course_name { "MyString" }
     hole_number { 1 }
     is_beingEdited { false }
-    user_id { 1 }
-    course_id { 1 }
+    user { nil }
+
   end
 end
