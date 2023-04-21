@@ -8,7 +8,6 @@
     %thead
       %tr
         %th Hole Number
-        %th Being Edited?
         %th Creator
         %th Course Name
         %th
@@ -16,7 +15,6 @@
       - @holes.each do |hole|
         %tr
           %td= hole.hole_number
-          %td= hole.is_beingEdited
           %td= hole.user.email
           %td= hole.course_name
           %td

@@ -14,16 +14,10 @@
 
     = csrf_meta_tags
     = csp_meta_tag
-
+    
     = stylesheet_pack_tag 'styles', media: 'all'
-
-    = javascript_pack_tag 'application_with_hole'
-    -# - if controller_name == 'holes' && (action_name == 'edit' || action_name == "new")
-    -#   = javascript_pack_tag 'application_with_hole'
-    -# - elsif controller_name == 'user_holes' && (action_name == 'edit')
-    -#   = javascript_pack_tag 'application_with_user_hole'
-    -# - else
-    -#   = javascript_pack_tag 'application'
+    = javascript_pack_tag 'application'
+   
 
   %body
     - if flash.present?

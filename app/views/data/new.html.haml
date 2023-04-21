@@ -1,23 +1,9 @@
-= simple_form_for(@datum) do |f|
-  .card-body
-    %input#course{:name => "course", :type => "text", :value => @course_name}
-    %input#hole{:name => "hole", :type => "text", :value => @hole_id}
-    %p Draw out the features of the hole, using the shape types below
-    %select.form-select{id: "shape-type"}
-      %option{value: "fairway"} Fairway
-      %option{value: "green"} Green
-      %option{value: "rough"} Rough
-      %option{value: "rock"} Rock
-      %option{value: "bunker"} Bunker
-      %option{value: "water"} Water
-      %option{value: "tree"} Tree
-      %option{value: "tee"} Teeing Ground
-
-    #map
-
-
-  .card-footer.d-flex
-    = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole' 
-    = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'
-
+.row.justify-content-center
+  .col-lg-8
+    .card
+      .card-header 
+        New Hole
+      %input#course{:name => "course", :type => "text", :value => @course_name, :hidden => true}
+      %input#hole{:name => "hole", :type => "text", :value => @hole_id, :hidden => true}
     
+      = render 'form'
