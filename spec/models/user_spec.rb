@@ -125,4 +125,127 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'Database' do
+    it 'should have a table' do
+      expect(User.table_exists?).to be(true)
+    end
+
+    it 'should have columns' do
+      expect(User.column_names).to include("id")
+      expect(User.column_names).to include("email")
+      expect(User.column_names).to include("encrypted_password")
+      expect(User.column_names).to include("user_role")
+    end
+
+    it 'should have a default id' do
+      expect(User.column_defaults["id"]).to eq(nil)
+    end
+
+    it 'should have a default password' do
+      expect(User.column_defaults["encrypted_password"]).to eq("")
+    end
+
+    it ' should have a default email' do
+      expect(User.column_defaults["email"]).to eq("")
+    end
+
+    it 'should have a default user role' do
+      expect(User.column_defaults["user_role"]).to eq("user")
+    end
+
+    it 'should have a primary key' do
+      expect(User.primary_key).to eq("id")
+    end
+  end
+
+  describe 'error messages' do
+    it 'should return error message for invalid email' do
+      user = FactoryBot.build(:user, email: 'abc')
+      user.save
+      expect(user.errors.full_messages).to include("Email is invalid")
+    end
+
+    it 'should return error message for invalid password' do
+      user = FactoryBot.build(:user, password: 'abc')
+      user.save
+      expect(user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+    end
+
+    it 'should return error message for invalid email' do
+      user = FactoryBot.build(:user, email: nil)
+      user.save
+      expect(user.errors.full_messages).to include("Email can't be blank")
+    end
+
+    it 'should return error message for invalid password' do
+      user = FactoryBot.build(:user, password: nil)
+      user.save
+      expect(user.errors.full_messages).to include("Password can't be blank")
+    end
+  end
+
+  describe 'forgot password' do
+    it 'should send reset password email' do
+      user = User.create(id: 12123, email: "abc@sheffield.ac.uk", password: "123456", user_role: "user")
+      user.send_reset_password_instructions
+      expect(user.errors.full_messages).to eq([])
+    end
+  end
+
+  describe 'registration' do
+    it 'should register a user with valid email and password' do 
+      user = User.create(id: 12123, email: "abc@sheffield.ac.uk", password: "123456", user_role: "user")
+      user.save
+      expect(user.errors.full_messages).to eq([])
+    end
+
+    it 'should not register a user with invalid email' do
+      user = FactoryBot.build(:user, email: 'abc')
+      user.save
+      expect(user.errors.full_messages).to include("Email is invalid")
+    end
+
+    it 'should not register a user with invalid password' do
+      user = FactoryBot.build(:user, password: 'abc')
+      user.save
+      expect(user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+    end
+
+    it 'should not register a user with invalid email' do
+      user = FactoryBot.build(:user, email: nil)
+      user.save
+      expect(user.errors.full_messages).to include("Email can't be blank")
+    end
+
+    it 'should not register a user with invalid password' do
+      user = FactoryBot.build(:user, password: nil)
+      user.save
+      expect(user.errors.full_messages).to include("Password can't be blank")
+    end
+
+    it 'should register a user with valid email and password' do
+      user = User.create(id: 12123, email: "abc@sheffield.ac.uk", password: "123456", user_role: "user")
+      user.save
+      expect(user.errors.full_messages).to eq([])
+    end
+  end
+
+  describe 'login' do
+    it 'should login a user with valid email and password' do
+      user = User.create(id: 12123, email: "abc@sheffield.ac.uk", password: "123456", user_role: "user")
+      expect(User.find_for_database_authentication(email: user.email)).to eq(user)
+    end
+
+    it 'should not login a user with invalid email' do
+      user = User.create(id: 12123, email: "abc", password: "123456", user_role: "user")
+      expect(User.find_for_database_authentication(email: 'abc')).to eq(nil)
+    end
+
+    it 'should not login a user with invalid password' do
+      user = User.create(id: 12123, email: "abc@sheffield.ac.uk", password: "abc", user_role: "user")
+      expect(User.find_for_database_authentication(email: user.email)).to eq(nil)
+    end
+  end
+
+
 end
