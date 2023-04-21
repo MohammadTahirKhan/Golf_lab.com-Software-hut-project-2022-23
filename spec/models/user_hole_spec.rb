@@ -102,4 +102,23 @@ RSpec.describe UserHole, type: :model do
     end
   end
 
+  describe 'update' do
+    it 'should update user_hole' do
+      user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
+      hole = Hole.create(id: 12123, hole_number: 1, is_beingEdited: false, user_id: 12123, course_name: "TestCourse")
+      user_hole = UserHole.create(id: 12123, hole_number: 1, user_id: 12123, hole_id: 12123)
+      user_hole.update(hole_number: 12)
+      expect(user_hole).to be_valid
+    end
+  end
+
+  describe 'delete' do
+    it 'should delete user_hole' do
+      user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
+      hole = Hole.create(id: 12123, hole_number: 1, is_beingEdited: false, user_id: 12123, course_name: "TestCourse")
+      user_hole = UserHole.create(id: 12123, hole_number: 1, user_id: 12123, hole_id: 12123)
+      user_hole.destroy
+      expect(UserHole.all).to_not include(user_hole)
+    end
+  end
 end
