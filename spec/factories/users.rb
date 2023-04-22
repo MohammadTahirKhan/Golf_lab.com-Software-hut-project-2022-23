@@ -24,4 +24,16 @@ FactoryBot.define do
     user_role { "user" }
     
   end
+
+  factory :map_creator, class: User do
+    email { "mapcr@gmail.com" }
+    encrypted_password { "123456" }
+    user_role { "map_creator" }
+  end
+
+  factory :admin, class: User do
+    email { "admin@gmail.com" }
+    encrypted_password { "123456" }
+    user_role { "admin" }
+  end
 end

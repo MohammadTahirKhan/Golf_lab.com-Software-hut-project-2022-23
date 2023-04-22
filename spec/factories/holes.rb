@@ -24,6 +24,58 @@ FactoryBot.define do
     hole_number { 1 }
     is_beingEdited { false }
     user { nil }
-
   end
+  
+  factory :hole_with_data, class: Hole do
+    course_name { "MyString" }
+    hole_number { 1 }
+    is_beingEdited { false }
+    user { nil }
+    data { [build(:datum)] }
+  end
+
+  factory :hole_with_user_holes, class: Hole do
+    course_name { "MyString" }
+    hole_number { 1 }
+    is_beingEdited { false }
+    user { nil }
+    user_holes { [build(:user_hole)] }
+  end
+
+  factory :hole_with_data_and_user_holes, class: Hole do
+    course_name { "MyString" }
+    hole_number { 1 }
+    is_beingEdited { false }
+    user { nil }
+    data { [build(:datum)] }
+    user_holes { [build(:user_hole)] }
+  end
+
+  factory :hole_with_data_and_user_holes_and_user, class: Hole do 
+    course_name { "MyString" }
+    hole_number { 1 }
+    is_beingEdited { false }
+    user { build(:user) }
+    data { [build(:datum)] }
+    user_holes { [build(:user_hole)] }
+  end
+
+  factory :hole_with_data_and_user_holes_and_user_and_map_creator, class: Hole do
+    course_name { "MyString" }
+    hole_number { 1 }
+    is_beingEdited { false }
+    user { build(:map_creator) }
+    data { [build(:datum)] }
+    user_holes { [build(:user_hole)] }
+  end
+
+  factory :hole_with_data_and_user_holes_and_user_and_admin, class: Hole do
+    course_name { "MyString" }
+    hole_number { 1 }
+    is_beingEdited { false }
+    user { build(:admin) }
+    data { [build(:datum)] }
+    user_holes { [build(:user_hole)] }
+  end
+
 end

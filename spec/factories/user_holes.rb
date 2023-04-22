@@ -25,4 +25,38 @@ FactoryBot.define do
     hole { nil }
     user { nil }
   end
+
+  factory :user_hole_with_data, class: UserHole do
+    hole_number { 1 }
+    hole { nil }
+    user { nil }
+    data { [build(:datum)] }
+  end
+
+  factory :user_hole_with_hole, class: UserHole do
+    hole_number { 1 }
+    hole { build(:hole) }
+    user { nil }
+  end
+
+  factory :user_hole_with_data_and_hole, class: UserHole do
+    hole_number { 1 }
+    hole { build(:hole) }
+    user { nil }
+    data { [build(:datum)] }
+  end
+
+  factory :user_hole_with_hole_and_user, class: UserHole do
+    hole_number { 1 }
+    hole { build(:hole) }
+    user { build(:user) }
+  end
+
+  factory :user_hole_with_data_and_hole_and_user, class: UserHole do
+    hole_number { 1 }
+    hole { build(:hole) }
+    user { build(:user) }
+    data { [build(:datum)] }
+  end
+
 end

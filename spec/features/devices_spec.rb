@@ -203,6 +203,18 @@ RSpec.describe "testing devices features" do
         expect(page).to have_content("Signed in successfully.")
     end
 
+    it "should go to edit profile page from navigation bar" do
+        user = User.create(id: 12123, email: "abc@gmail.com", password: "123456", user_role: "user")
+        visit root_path
+        click_link "Log in"
+        fill_in "Email", with: "abc@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        click_link "abc@gmail.com"
+        click_link "Edit Profile"
+        expect(page).to have_content("Edit User")
+    end
+
     it "should not edit profile with invalid email" do
         user = User.create(id: 12123, email: "abc@gmail.com", password: "123456", user_role: "user")
         visit root_path
@@ -304,4 +316,17 @@ RSpec.describe "testing devices features" do
     #     click_button "Login"
     #     expect(page).to have_content("Invalid Email or password.")
     # end
+
+    it "logs out" do
+        user = User.create(id: 12123, email: "abc@gmail.com", password: "123456", user_role: "user")
+        visit root_path
+        click_link "Log in"
+        fill_in "Email", with: "abc@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        click_link "abc@gmail.com"
+        click_link "Log out"
+        expect(page).to have_content("Signed out successfully.")
+    end
+
 end
