@@ -1,6 +1,9 @@
+= append_javascript_pack_tag "user_hole"
+
 .row.justify-content-center
   .col-lg-8
     .card
       .card-header 
         Edit Hole
       = render 'form'
+      %input#course{:value => @datum.hole.course_name, :hidden => true}

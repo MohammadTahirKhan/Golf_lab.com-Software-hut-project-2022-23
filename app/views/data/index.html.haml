@@ -10,7 +10,6 @@
         %th Xcoordinates
         %th Ycoordinates
         %th Hole
-        %th Userhole
         %th
     %tbody
       - @data.each do |datum|
@@ -18,7 +17,7 @@
           %td= datum.xCoordinates
           %td= datum.yCoordinates
           %td= datum.hole_id
-          %td= datum.userhole_id
+          -# %td= datum.userhole_id
           %td
             .btn-toolbar.float-end
               = link_to 'Show', datum, class: 'btn btn-outline-secondary btn-sm'

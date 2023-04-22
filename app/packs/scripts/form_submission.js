@@ -8,7 +8,7 @@ import {
   water,
   trees,
   tees,
-} from "../scripts/hole";
+} from "./map";
 
 function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
   var form = new FormData();

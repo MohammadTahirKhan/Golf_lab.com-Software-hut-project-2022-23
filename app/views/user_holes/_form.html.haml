@@ -4,8 +4,9 @@
     %h5
       Hole 
       = @user_hole.hole_number
-      at 
+    %h5 
       = @user_hole.hole.course_name
+
     %p Draw out the features of the hole, using the shape types below
     %select.form-select{id: "shape-type"}
       %option{value: "fairway"} Fairway

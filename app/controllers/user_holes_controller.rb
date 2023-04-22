@@ -18,7 +18,7 @@ class UserHolesController < ApplicationController
 
   # GET /user_holes/1/edit
   def edit
-    @data = Datum.where(hole_id: params[:id])
+    @data = Datum.where(hole_id: @user_hole.hole_id)
     @xCoordinates = []
     @yCoordinates = []
     @terrain_type = []
@@ -29,7 +29,6 @@ class UserHolesController < ApplicationController
       @terrain_type.append(data.terrain_type)
     end
 
-    puts @data
   end
 
   # POST /user_holes

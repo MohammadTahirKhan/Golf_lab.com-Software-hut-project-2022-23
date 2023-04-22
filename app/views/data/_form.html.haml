@@ -1,12 +1,6 @@
-= append_javascript_pack_tag "hole"
 
 = simple_form_for(@datum) do |f|
   .card-body
-    = f.input :xCoordinates, wrapper_html: { class: 'mb-3' }
-    = f.input :yCoordinates, wrapper_html: { class: 'mb-3' }
-    = f.input :hole_id, wrapper_html: { class: 'mb-3' }
-    = f.input :user_hole_id, wrapper_html: { class: 'mb-3' }
-    
     %p Draw out the features of the hole, using the shape types below
     %select.form-select{id: "shape-type"}
       %option{value: "fairway"} Fairway

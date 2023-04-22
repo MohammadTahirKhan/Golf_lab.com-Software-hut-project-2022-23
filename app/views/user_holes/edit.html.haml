@@ -1,8 +1,11 @@
+= append_javascript_pack_tag "user_hole"
+
 .row.justify-content-center
-  .col-sm-8.col-lg-6
+  .col-lg-9
     .card
       .card-header Editing User Hole
       = render 'form'
+      %input#course{:value => @user_hole.hole.course_name, :hidden => true}
       %input#xCoordinates{:name => "xCoords",:value => @xCoordinates}
       %input#yCoordinates{:name => "yCoords", :value => @yCoordinates}
       %input#terrain_type{:name => "terrains", :value => @terrain_type}
