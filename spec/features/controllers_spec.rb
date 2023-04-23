@@ -131,4 +131,13 @@ RSpec.describe "testing if all the pages are displayed" do
         visit "/users/edit"
         expect(page).to have_content "Delete my account"
     end
+
+    it "download the csv file" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "admin")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        click_link "Download CSV"
+    end
 end
