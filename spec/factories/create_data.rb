@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 FactoryBot.define do
   factory :create_datum do
     xCoordinates { "MyString" }
