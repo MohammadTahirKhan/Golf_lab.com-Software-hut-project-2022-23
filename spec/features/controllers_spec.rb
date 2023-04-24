@@ -140,4 +140,29 @@ RSpec.describe "testing if all the pages are displayed" do
         click_button "Login"
         click_link "Download CSV"
     end
+
+    it "should display the admin page" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "admin")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        expect(page).to have_content "Admin"
+        click_link "Admin"
+        expect(page).to have_content "Listing Users"
+    end
+
+    it "should display the edit role page for admin" do
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "admin")
+        user = User.create(id: 1212, email: "2@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        click_link "Admin"
+        click_link "Edit"
+        expect(page).to have_content "Edit User Role"
+    end
+
 end

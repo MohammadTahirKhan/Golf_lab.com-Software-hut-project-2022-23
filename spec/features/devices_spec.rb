@@ -298,24 +298,50 @@ RSpec.describe "testing devices features" do
         expect(page).to have_content("Signed in successfully.")
     end
 
-    # it "should delete account" do
-    #     user = User.create(id: 12123, email: "abc@gmail.com", password: "123456", user_role: "user")
-    #     visit root_path
-    #     click_link "Log in"
-    #     fill_in "Email", with: "abc@gmail.com"
-    #     fill_in "Password", with: "123456"
-    #     click_button "Login"
-    #     visit edit_user_registration_path
-    #     click_link "Delete my account"
-    #     expect(page).to have_content("Bye! Your account has been successfully cancelled. We hope to see you again soon.")
+    it "should delete account" do
+        user = User.create(id: 12123, email: "abc@gmail.com", password: "123456", user_role: "user")
+        visit root_path
+        click_link "Log in"
+        fill_in "Email", with: "abc@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit edit_user_registration_path
+        click_button "Delete my account"
+        expect(page).to have_content("Bye! Your account has been successfully cancelled. We hope to see you again soon.")
 
-    #     visit root_path
-    #     click_link "Log in"
-    #     fill_in "Email", with: "abc@gmail.com"
-    #     fill_in "Password", with: "123456"
-    #     click_button "Login"
-    #     expect(page).to have_content("Invalid Email or password.")
-    # end
+        visit root_path
+        click_link "Log in"
+        fill_in "Email", with: "abc@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        expect(page).to have_content("Invalid Email or password.")
+    end
+
+    it "should delete all the user holes created along with the user account" do
+        user = User.create(id: 1213, email: "abc@gmail.com", password: "123456", user_role: "user")
+        user2 = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        hole = Hole.create(id: 12123, hole_number: 1, is_beingEdited: false, user_id: 12123, course_name: "TestCourse")
+        user_hole = UserHole.create(id: 12123, hole_id: 12123, user_id: 1213)
+        visit root_path
+        click_link "Log in"
+        fill_in "Email", with: "abc@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit edit_user_registration_path
+        click_button "Delete my account"
+        expect(UserHole.all).not_to include(user_hole)
+    end
+
+    it "should not delete account for admin and map creators" do
+        user = User.create(id: 1213, email: "abc@gmail.com", password: "123456", user_role: "admin")
+        visit root_path
+        click_link "Log in"
+        fill_in "Email", with: "abc@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit edit_user_registration_path
+        expect(page).to have_content("You are an admin, you cannot delete your account.")
+    end
 
     it "logs out" do
         user = User.create(id: 12123, email: "abc@gmail.com", password: "123456", user_role: "user")
