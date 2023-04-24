@@ -35,7 +35,21 @@
 
     %div#profile-user-form
         %h3#header Delete my account
-        %p
+        -if resource.user_role == "admin"
+            %p
+                You are an admin, you cannot delete your account.
+            
+        - elsif resource.user_role == "map_creator"
+            %p
+                You are a map creator, you cannot delete your account.
+            
+        - else
+            -# - delete user holes 
             Unhappy? #{button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary form-btn"}
+            - user_holes = UserHole.where(user_id: resource.id)
+            - user_holes.each do |user_hole|
+                - user_hole.destroy
+                
+            
         = link_to "Back", :back , id: "back"
     

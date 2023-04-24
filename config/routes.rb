@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :user_holes
   resources :holes
   resources :courses
+  resources :admin
 
   get '/export', to: 'export#index'
   post '/holes/new' , to: 'holes#create'

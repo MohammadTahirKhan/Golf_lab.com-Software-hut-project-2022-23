@@ -1,0 +1,6 @@
+-# form for editing a role
+-# Compare this snippet from app/views/admin/index.html.haml:
+= form_for @user , url: admin_path(@user), method: :put do |f|
+  = f.label :role
+  = f.select :user_role, options_for_select([['Admin', 'admin'], ['User', 'user'], ['Map_creator', 'map_creator']])
+  = f.submit 'Update'

@@ -1,0 +1,17 @@
+-# show all the users
+%h1 Users
+%table
+  %tr
+    %th Email
+    %th Role
+    %th Actions
+    
+  - @users.each do |user|
+    %tr
+      %td= user.id
+      %td= user.email
+      %td= user.user_role
+      %td
+        = link_to 'Edit', edit_admin_path(user)
+        |
+        = link_to 'Delete', admin_path(user), method: :delete, data: { confirm: 'Are you sure?' }
