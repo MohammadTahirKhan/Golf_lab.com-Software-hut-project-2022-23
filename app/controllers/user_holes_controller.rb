@@ -1,9 +1,20 @@
 class UserHolesController < ApplicationController
   before_action :set_user_hole, only: %i[ show edit update destroy ]
+  before_action :require_user, only: %i[ show new edit create update destroy ]
+
+  def require_user
+    unless current_user.user_role == "user"
+      redirect_to root_path
+    end
+  end
 
   # GET /user_holes
   def index
-    @user_holes = UserHole.where(user_id: current_user.id)
+    if current_user.user_role == "user"
+      @user_holes = UserHole.where(user_id: current_user.id)
+    else
+      @user_holes = UserHole.all
+    end
   end
 
   # GET /user_holes/1
