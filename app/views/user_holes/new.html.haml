@@ -17,7 +17,6 @@
           %td= hole.course_name
           %td
             .btn-toolbar.float-end
-              -# = link_to 'Create', create_user_hole_path(hole), class: 'btn btn-outline-secondary btn-sm'
               = simple_form_for @user_hole do |f|
                 = f.input :hole_id , as: :hidden, input_html: { value: hole.id}
                 = f.submit 'Create', class: 'btn btn-primary'

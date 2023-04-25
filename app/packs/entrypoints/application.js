@@ -1,6 +1,6 @@
 import Rails from "@rails/ujs";
 import "bootstrap";
-import removeFlashMsg from "../scripts/layout";
+import {removeFlashMsg} from "../scripts/layout";
 
 window.removeFlashMsg = removeFlashMsg;
 

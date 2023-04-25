@@ -1,16 +1,23 @@
+= append_javascript_pack_tag "map"
+
 .row.justify-content-center
-  .col-sm-8.col-lg-6
+  .col-lg-9
     .card
-      .card-header
-        Hole details
+      .card-header User Hole Details
       .card-body
-        %dl.row.mb-0
-          %dt.col-md-3 Hole number:
-          %dd.col-md-9= @user_hole.hole_number
-          %dt.col-md-3 User:
-          %dd.col-md-9= @user_hole.user.email
-          %dt.col-md-3 Course Name:
-          %dd.col-md-9= @user_hole.hole.course_name
+        %h5
+          Hole 
+          = @user_hole.hole_number
+        %h5 
+          = @user_hole.hole.course_name
+  
+        #map
+
       .card-footer.d-flex
         = link_to 'Edit', edit_user_hole_path(@user_hole), class: 'btn btn-link'
         = link_to 'Back', user_holes_path, class: 'btn btn-link ms-auto'
+
+    %input#course{:value => @user_hole.hole.course_name, :hidden => true}
+    %input#xCoordinates{:name => "xCoords",:value => @xCoordinates, :hidden => true}
+    %input#yCoordinates{:name => "yCoords", :value => @yCoordinates, :hidden => true}
+    %input#terrain_type{:name => "terrains", :value => @terrain_type, :hidden => true}

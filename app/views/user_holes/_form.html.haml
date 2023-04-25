@@ -1,4 +1,6 @@
 -# frozen_string_literal: true
+= append_javascript_pack_tag "map_with_edit_control"
+
 = simple_form_for(@user_hole) do |f|
   .card-body
     %h5
@@ -24,3 +26,8 @@
   .card-footer.d-flex
     = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole'
     = link_to 'Back', user_holes_path, class: 'btn btn-link ms-auto'
+
+%input#course{:value => @user_hole.hole.course_name,}
+%input#xCoordinates{:name => "xCoords",:value => @xCoordinates, :hidden => true}
+%input#yCoordinates{:name => "yCoords", :value => @yCoordinates, :hidden => true}
+%input#terrain_type{:name => "terrains", :value => @terrain_type, :hidden => true}

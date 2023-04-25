@@ -19,6 +19,16 @@ class UserHolesController < ApplicationController
 
   # GET /user_holes/1
   def show
+    @data = Datum.where(hole_id: @user_hole.hole_id)
+    @xCoordinates = []
+    @yCoordinates = []
+    @terrain_type = []
+    
+    @data.each do |data| 
+      @xCoordinates.append(data.xCoordinates)
+      @yCoordinates.append(data.yCoordinates)
+      @terrain_type.append(data.terrain_type)
+    end
   end
 
   # GET /user_holes/new
