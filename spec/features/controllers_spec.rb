@@ -19,11 +19,21 @@ RSpec.describe "testing if all the pages are displayed" do
     end
 
     it "should display the holes page" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
         visit holes_path
         expect(page).to have_content("Listing Holes")
     end
 
     it "should display the new holes page" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
         visit new_hole_path
         expect(page).to have_content("New Hole")
     end

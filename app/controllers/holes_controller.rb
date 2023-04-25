@@ -1,5 +1,12 @@
 class HolesController < ApplicationController
   before_action :set_hole, only: %i[ show edit update destroy ]
+  before_action :require_map_creator
+
+  def require_map_creator
+    unless current_user.user_role == "map_creator" || current_user.user_role == "admin"
+      redirect_to root_path
+    end
+  end
 
   # GET /holes
   def index
