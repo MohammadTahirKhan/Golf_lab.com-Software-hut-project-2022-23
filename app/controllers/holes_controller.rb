@@ -33,17 +33,7 @@ class HolesController < ApplicationController
   end
 
   # GET /holes/1/edit
-  def edit
-    @data = Datum.where(hole_id: @hole.id)
-    @xCoordinates = []
-    @yCoordinates = []
-    @terrain_type = []
-    
-    @data.each do |data| 
-      @xCoordinates.append(data.xCoordinates)
-      @yCoordinates.append(data.yCoordinates)
-      @terrain_type.append(data.terrain_type)
-    end
+  def edit  
   end
 
  
@@ -52,8 +42,7 @@ class HolesController < ApplicationController
     @hole = Hole.new(hole_params)
     @hole.user_id = current_user.id
     if @hole.save
-      id  = @hole.id
-      redirect_to new_datum_path(:id => id,:course_name => @hole.course_name), notice: "Hole was successfully created."
+      redirect_to new_datum_path(:id => @hole.id,:course_name => @hole.course_name), notice: "Hole was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -63,7 +52,21 @@ class HolesController < ApplicationController
   def update
     if @hole.update(hole_params)
       x = params[:id]
-      redirect_to @hole, notice: "Hole was successfully updated."
+      puts @hole
+      puts @hole.id
+      puts @hole.course_name
+      @data = Datum.where(hole_id: @hole.id)
+      @xCoordinates = []
+      @yCoordinates = []
+      @terrain_type = []
+    
+      @data.each do |data| 
+        @xCoordinates.append(data.xCoordinates)
+        @yCoordinates.append(data.yCoordinates)
+        @terrain_type.append(data.terrain_type)
+      end
+
+      redirect_to edit_datum_path(:id => @hole.id,:course_name => @hole.course_name, :xCoordinates => @xCoordinates, :yCoordinates => @yCoordinates, :terrain_type => @terrain_type), notice: "Hole was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end

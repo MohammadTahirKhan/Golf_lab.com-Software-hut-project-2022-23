@@ -23,16 +23,22 @@ class DataController < ApplicationController
 
   # GET /data/1/edit
   def edit
+
+    
+    @hole_id = params[:id]
+    @course_name = params[:course_name]
+    @xCoordinates = params[:xCoordinates]
+    @yCoordinates = params[:yCoordinates]
+    @terrain_type = params[:terrain_type]
+
   end
-
-
 
   # POST /data
   def create
     @datum = Datum.new(datum_params)    
     if @datum.save
       puts "Saved"
-      redirect_to '/',notice: "Datum was successfully created."
+      redirect_to '/holes',notice: "Datum was successfully created."
     else
       puts "GG"
       puts @datum.errors.inspect
@@ -40,13 +46,27 @@ class DataController < ApplicationController
     end
   end
 
+  def deleter
+    puts datum_params["hole_id"]
+    @datum = Datum.where(hole_id: datum_params["hole_id"])
+    puts @datum
+
+    for a in @datum
+      puts a
+      a.destroy
+    end
+
+  end
+
   # PATCH/PUT /data/1
   def update
-    if @datum.update(datum_params)
-      redirect_to @datum, notice: "Datum was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
-    end
+
+    # if @datum.update(datum_params)
+    #   redirect_to @datum, notice: "Datum was successfully updated."
+    # else
+    #   render :edit, status: :unprocessable_entity
+    # end
+    redirect_to '/holes'
   end
 
   # DELETE /data/1

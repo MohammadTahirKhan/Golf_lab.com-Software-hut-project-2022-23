@@ -12,25 +12,25 @@
           = f.input :hole_number, required: true
           = f.input :course_name, required: true, input_html: {id: "searchbar"}
 
-          %p Draw out the features of the hole, using the shape types below
-          %select.form-select{id: "shape-type"}
-            %option{value: "fairway"} Fairway
-            %option{value: "green"} Green
-            %option{value: "rough"} Rough
-            %option{value: "rock"} Rock
-            %option{value: "bunker"} Bunker
-            %option{value: "water"} Water
-            %option{value: "tree"} Tree
-            %option{value: "tee"} Teeing Ground
+          -# %p Draw out the features of the hole, using the shape types below
+          -# %select.form-select{id: "shape-type"}
+          -#   %option{value: "fairway"} Fairway
+          -#   %option{value: "green"} Green
+          -#   %option{value: "rough"} Rough
+          -#   %option{value: "rock"} Rock
+          -#   %option{value: "bunker"} Bunker
+          -#   %option{value: "water"} Water
+          -#   %option{value: "tree"} Tree
+          -#   %option{value: "tee"} Teeing Ground
 
-          #map
+          -# #map
 
 
         .card-footer.d-flex
           = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole'
           = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'
 
-      %input#course{:value => @hole.course_name,}
-      %input#xCoordinates{:name => "xCoords",:value => @xCoordinates, :hidden => true}
-      %input#yCoordinates{:name => "yCoords", :value => @yCoordinates, :hidden => true}
-      %input#terrain_type{:name => "terrains", :value => @terrain_type, :hidden => true}
+      -# %input#course{:name => "course", :value => @hole.course_name, :hidden => true}
+      -# %input#xCoordinates{:name => "xCoords",:value => @xCoordinates, :hidden => true}
+      -# %input#yCoordinates{:name => "yCoords", :value => @yCoordinates, :hidden => true}
+      -# %input#terrain_type{:name => "terrains", :value => @terrain_type, :hidden => true}
