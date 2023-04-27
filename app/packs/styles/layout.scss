@@ -51,7 +51,6 @@ body {
 
   #map {
     height: 90vh;
-    // aspect-ratio: 1/1;
   }
 
   footer {
@@ -61,7 +60,7 @@ body {
 
 .flash-messages {
   position: fixed;
-  z-index: 100;
+  z-index: 9999;
 
   .close {
     background-color: transparent;

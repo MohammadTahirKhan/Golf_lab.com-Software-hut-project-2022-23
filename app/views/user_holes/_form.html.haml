@@ -27,7 +27,7 @@
     = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole'
     = link_to 'Back', user_holes_path, class: 'btn btn-link ms-auto'
 
-%input#course{:value => @user_hole.hole.course_name,}
+%input#course{:value => @user_hole.hole.course_name, :hidden => true}
 %input#xCoordinates{:name => "xCoords",:value => @xCoordinates, :hidden => true}
 %input#yCoordinates{:name => "yCoords", :value => @yCoordinates, :hidden => true}
 %input#terrain_type{:name => "terrains", :value => @terrain_type, :hidden => true}

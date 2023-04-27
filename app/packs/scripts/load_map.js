@@ -82,7 +82,6 @@ tees.on("layeradd", function () {
   tees.setStyle({ color: "rgb(255, 255, 255)" });
 });
 
-
 // Loading shapes onto map
 var xCoords = document.getElementById("xCoordinates").value.split('"');
 var yCoords = document.getElementById("yCoordinates").value.split('"');

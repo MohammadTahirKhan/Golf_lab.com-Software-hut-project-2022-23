@@ -1,28 +1,8 @@
 -# frozen_string_literal: true
-= append_javascript_pack_tag "map_with_edit_control"
-
-= simple_form_for(@datum) do |f|
-  .card-body
-    %p Draw out the features of the hole, using the shape types below
-    %select.form-select{id: "shape-type"}
-      %option{value: "fairway"} Fairway
-      %option{value: "green"} Green
-      %option{value: "rough"} Rough
-      %option{value: "rock"} Rock
-      %option{value: "bunker"} Bunker
-      %option{value: "water"} Water
-      %option{value: "tree"} Tree
-      %option{value: "tee"} Teeing Ground
-
-    #map
-
-  .card-footer.d-flex
-    = f.submit 'Save', class: 'btn btn-primary', id: 'submit-hole'
-    = link_to 'Back', user_holes_path, class: 'btn btn-link ms-auto'
-
-
-%input#course{:name => "course", :value => @course_name}
-%input#xCoordinates{:name => "xCoords",:value => @xCoordinates}
-%input#yCoordinates{:name => "yCoords", :value => @yCoordinates}
-%input#terrain_type{:name => "terrains", :value => @terrain_type}
-%input#hole{:name => "hole", :type => "text", :value => @hole_id}
+.row.justify-content-center
+  .col-lg-8
+    .card
+      .card-header 
+        Edit Hole
+   
+      = render 'form'

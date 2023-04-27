@@ -67,8 +67,6 @@ shapeType.onchange = function () {
     case "tee":
       initialiseDrawControl(tees);
   }
-  console.log(fairways);
-
 };
 
 // Adds new shape to feature group
@@ -100,5 +98,4 @@ map.on("draw:created", function (e) {
     case "tee":
       tees.addLayer(layer);
   }
-  console.log(fairways);
 });
