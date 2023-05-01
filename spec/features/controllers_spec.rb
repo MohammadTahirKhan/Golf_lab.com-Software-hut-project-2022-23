@@ -40,6 +40,8 @@ RSpec.describe "testing if all the pages are displayed" do
 
     it "should display the edit holes page" do
         user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        UserHole.delete_all
+        Hole.delete_all
         visit "/users/sign_in"
         fill_in "Email", with: "1@gmail.com"
         fill_in "Password", with: "123456"
@@ -48,6 +50,7 @@ RSpec.describe "testing if all the pages are displayed" do
         fill_in "Hole number", with: "1"
         fill_in "Course name", with: "TestCourse"
         click_button "Save"
+        datum= Datum.create(id: 1, xCoordinates: 1, yCoordinates: 1, hole_id: 1)
         visit "/holes/1/edit"
         expect(page).to have_content("Edit Hole")
         click_button "Save"
@@ -64,10 +67,15 @@ RSpec.describe "testing if all the pages are displayed" do
         fill_in "Course name", with: "TestCourse"
         click_button "Save"
         visit "/holes/2"
-        expect(page).to have_content("Hole details")
+        expect(page).to have_content("Hole Details")
     end
 
     it "should display the new user holes page" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
         visit new_user_hole_path
         expect(page).to have_content("Choose a Hole")
     end
