@@ -22,7 +22,9 @@ class DataController < ApplicationController
   end
 
   # GET /data/1/edit
-  def edit    
+  def edit
+
+    
     @hole_id = params[:id]
     @course_name = params[:course_name]
     @xCoordinates = params[:xCoordinates]
@@ -35,7 +37,7 @@ class DataController < ApplicationController
     @datum = Datum.new(datum_params)    
     if @datum.save
       puts "Saved"
-      redirect_to '/holes',notice: "Datum was successfully created."
+      redirect_to '/',notice: "Datum was successfully created."
     else
       puts "GG"
       puts @datum.errors.inspect
@@ -45,9 +47,10 @@ class DataController < ApplicationController
 
   def deleter
     puts datum_params["hole_id"]
-    @datum = Datum.where(hole_id: datum_params["hole_id"])
-    puts @datum
 
+    @datum = Datum.where(user_hole_id: datum_params["user_hole_id"], hole_id: datum_params["hole_id"])
+    puts @datum
+    puts "LEXISNexis"
     for a in @datum
       puts a
       a.destroy
@@ -75,7 +78,8 @@ class DataController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_datum
-      @datum = Datum.find(params[:id])
+      # @datum = Datum.find(hole_id: params[:id])
+      @datum = Datum.new()
     end
 
     # Only allow a list of trusted parameters through.

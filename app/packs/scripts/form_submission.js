@@ -1,3 +1,7 @@
+/**
+ * Contains scripts responsible for submitting new data and deleting old
+ */
+
 import Rails from "@rails/ujs";
 import {
   fairways,
@@ -10,14 +14,22 @@ import {
   tees,
 } from "./load_map";
 
+/**
+ * Deletes all data associated with a hole
+ * @param {Number} hole_id 
+ * @returns {void}
+ */
 function deleteData(hole_id) {
   var form = new FormData();
+  if (window.location.pathname.includes("userhole")){
+    form.append("datum[user_hole_id]", hole_id);
+    // form.append("datum[hole_id]", null);
+  }
+  else{
+    form.append("datum[hole_id]", hole_id);
+    // form.append("datum[user_hole_id]", null);
+  }
 
-  // form.append("datum[xCoordinates]", null);
-  // form.append("datum[yCoordinates]", null);
-  form.append("datum[hole_id]", hole_id);
-  // form.append("datum[terrain_type]", null);
-  console.log("gfsgsgs");
 
   Rails.ajax({
     url: "/data/deleter",
@@ -26,13 +38,26 @@ function deleteData(hole_id) {
   });
 }
 
+/**
+ * Sends shape data to Rails
+ * @param {Number[][]} xCoordinates 
+ * @param {Number[][]} yCoordinates 
+ * @param {Number} hole_id 
+ * @param {String[]} terrain_type
+ * @returns {void}
+ */
 function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
   var form = new FormData();
-  console.log("gfsgsgsfefewf44");
-
+  
+  
   form.append("datum[xCoordinates]", xCoordinates);
   form.append("datum[yCoordinates]", yCoordinates);
-  form.append("datum[hole_id]", hole_id);
+  if (window.location.pathname.includes("userhole")) {
+    form.append("datum[user_hole_id]", hole_id);
+  }
+  else{
+    form.append("datum[hole_id]", hole_id);
+  }
   form.append("datum[terrain_type]", terrain_type);
 
   Rails.ajax({
@@ -43,8 +68,14 @@ function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
 }
 
 var submitButton = document.getElementById("submit-hole");
+
+/**
+ * Combines all shape coordinates into a multi-dimensional array
+ * Calls sendData() and deleteData() to create holes
+ * @returns {void}
+ */
 submitButton.onclick = function () {
-  var hole_id = document.getElementById("hole").value;
+  var hole_id = document.getElementById("hole").value; 
   deleteData(hole_id);
   if (fairways.getLayers().length > 0) {
     fairways.eachLayer(function (layer) {
