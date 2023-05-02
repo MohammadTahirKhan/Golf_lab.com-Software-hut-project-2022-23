@@ -1,3 +1,7 @@
+/**
+ * Adds drawing functionality to base map
+ */
+
 import "leaflet-draw";
 import {
   map,
@@ -10,6 +14,7 @@ import {
   trees,
   tees,
 } from "./load_map.js";
+import { FeatureGroup } from "leaflet";
 
 var drawOptions = {
   position: "topleft",
@@ -29,8 +34,12 @@ var drawOptions = {
   },
 };
 
-// Changes feature group being edited, called from dropdown event listener
 var drawControl = new L.Control.Draw(drawOptions);
+/**
+ * Reinitalises the draw control with the new featuregroup
+ * @param {FeatureGroup} type the featuregroup to be edited
+ * @returns {void}
+ */
 function initialiseDrawControl(type) {
   drawOptions.edit.featureGroup = type;
   map.removeControl(drawControl);
@@ -41,6 +50,11 @@ function initialiseDrawControl(type) {
 initialiseDrawControl(fairways);
 
 var shapeType = document.getElementById("shape-type");
+/**
+ * Changes the featuregroup to be edited based on the dropdown menu
+ * @returns {void}
+ * @listens shapeType.onchange
+ */
 shapeType.onchange = function () {
   switch (shapeType.value) {
     case "fairway":
@@ -69,7 +83,12 @@ shapeType.onchange = function () {
   }
 };
 
-// Adds new shape to feature group
+/**
+ * Adds the drawn shape to the correct featuregroup
+ * @param {Event} e the shape that triggered the function
+ * @returns {void}
+ * @listens draw:created
+ */
 map.on("draw:created", function (e) {
   var layer = e.layer;
 
