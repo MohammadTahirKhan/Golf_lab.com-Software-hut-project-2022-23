@@ -1,5 +1,15 @@
+-# frozen_string_literal: true
 .row.justify-content-center
-  .col-lg-9
+  .col-lg-8
     .card
-      .card-header Editing User Hole
-      = render 'form'
+      .card-header 
+        Edit Hole
+
+      = simple_form_for(@user_hole) do |f|
+        .card-body
+          = f.input :hole_number, required: true
+          %h5 
+          = @user_hole.hole.course_name
+        .card-footer.d-flex
+          = f.submit 'Continue to map', class: 'btn btn-primary', id: 'submit-hole'
+          = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'

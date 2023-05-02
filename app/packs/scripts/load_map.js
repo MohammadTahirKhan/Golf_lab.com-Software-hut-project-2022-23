@@ -23,7 +23,7 @@ var map = L.map("map", {
 });
 
 // Only displays satellite layer on hole pages, not user_holes
-if (!window.location.pathname.includes("user_holes")) {
+if (!window.location.pathname.includes("userhole")) {
   const satelliteLayer = L.tileLayer(
     "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
     {

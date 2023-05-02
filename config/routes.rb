@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # get '/holes/:id/edit', to: 'data#index'
   post '/data/deleter', to: 'data#deleter'
   post '/data/:id/edit', to: 'data#create'
+  get '/data/:id/edit/userhole', to: 'data#edit', as: :buraq
+  post '/data/:id/edit/userhole', to: 'data#create'
   post '/data/new' , to: 'data#create'
   post '/data', to: redirect('/holes')
   
