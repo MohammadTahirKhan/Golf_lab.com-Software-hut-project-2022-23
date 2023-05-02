@@ -22,15 +22,12 @@ class DataController < ApplicationController
   end
 
   # GET /data/1/edit
-  def edit
-
-    
+  def edit    
     @hole_id = params[:id]
     @course_name = params[:course_name]
     @xCoordinates = params[:xCoordinates]
     @yCoordinates = params[:yCoordinates]
     @terrain_type = params[:terrain_type]
-
   end
 
   # POST /data
