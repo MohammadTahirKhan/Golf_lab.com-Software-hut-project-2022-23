@@ -53,7 +53,7 @@ RSpec.describe "testing if all the pages are displayed" do
         datum= Datum.create(id: 1, xCoordinates: 1, yCoordinates: 1, hole_id: 1)
         visit "/holes/1/edit"
         expect(page).to have_content("Edit Hole")
-        click_button "Save"
+        click_button "Continue to map"
     end
 
     it "should display the show hole page" do

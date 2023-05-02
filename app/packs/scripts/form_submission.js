@@ -1,3 +1,7 @@
+/**
+ * Contains scripts responsible for submitting new data and deleting old
+ */
+
 import Rails from "@rails/ujs";
 import {
   fairways,
@@ -10,6 +14,11 @@ import {
   tees,
 } from "./load_map";
 
+/**
+ * Deletes all data associated with a hole
+ * @param {Number} hole_id 
+ * @returns {void}
+ */
 function deleteData(hole_id) {
   var form = new FormData();
   if (window.location.pathname.includes("userhole")){
@@ -29,6 +38,14 @@ function deleteData(hole_id) {
   });
 }
 
+/**
+ * Sends shape data to Rails
+ * @param {Number[][]} xCoordinates 
+ * @param {Number[][]} yCoordinates 
+ * @param {Number} hole_id 
+ * @param {String[]} terrain_type
+ * @returns {void}
+ */
 function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
   var form = new FormData();
   
@@ -51,6 +68,12 @@ function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
 }
 
 var submitButton = document.getElementById("submit-hole");
+
+/**
+ * Combines all shape coordinates into a multi-dimensional array
+ * Calls sendData() and deleteData() to create holes
+ * @returns {void}
+ */
 submitButton.onclick = function () {
   var hole_id = document.getElementById("hole").value; 
   deleteData(hole_id);
