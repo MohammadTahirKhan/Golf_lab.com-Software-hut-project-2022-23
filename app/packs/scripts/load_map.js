@@ -28,6 +28,30 @@ var map = L.map("map", {
   ],
 });
 
+// Only displays satellite layer on hole pages, not user_holes
+if (!window.location.pathname.includes("userhole")) {
+  const satelliteLayer = L.tileLayer(
+    "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
+    {
+      attribution:
+        "Imagery &copy;2023 Bluesky, CNES / Airbus, Getmapping plc, Infoterra Ltd & Bluesky, Maxar Technologies, The GeoInformation Group",
+      maxZoom: 21,
+      noWrap: true,
+    }
+  );
+
+  map.addLayer(satelliteLayer);
+}
+
+// Centres map on course
+window.onload = function () {
+  var osm = new OpenStreetMapProvider();
+  var courseName = document.getElementById("course").value.split(",")[0];
+  osm.search({ query: courseName }).then((result) => {
+    map.setView([result[0].y, result[0].x], 16);
+  });
+};
+
 L.control.scale({ position: "topright" }).addTo(map);
 map.addLayer(fairways);
 map.addLayer(greens);

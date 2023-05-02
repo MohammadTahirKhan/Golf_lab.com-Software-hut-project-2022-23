@@ -22,5 +22,5 @@
 class UserHole < ApplicationRecord
     belongs_to :user
     belongs_to :hole
-    has_many :datum
+    has_many :datum, dependent: :destroy 
 end
