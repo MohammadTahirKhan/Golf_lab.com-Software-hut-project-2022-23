@@ -29,6 +29,7 @@
               &times;
             = message
 
+    -# Don't show header if user is not signed in and is on the login or registration or forgot password page
     -unless !user_signed_in? && (controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords')
       %header{class: ("home-header" if action_name == 'home')}
         %nav.navbar.navbar-expand-lg.navbar-light.bg-light
