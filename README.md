@@ -1,4 +1,4 @@
-**# Golf Lab Project - Team 31
+# Golf Lab Project - Team 31
 An online golf course creation and management system. Map creators can design default outlines of holes on specific courses. Users may make copies of these default courses and customise them to their needs. 
 
 ## Getting Started
