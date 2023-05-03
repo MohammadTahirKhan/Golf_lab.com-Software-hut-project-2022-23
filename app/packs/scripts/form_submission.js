@@ -3,6 +3,7 @@
  */
 
 import Rails from "@rails/ujs";
+import { post } from "jquery";
 import {
   fairways,
   greens,
@@ -19,6 +20,24 @@ import {
  * @param {Number} hole_id 
  * @returns {void}
  */
+
+// async function postJSON(data) {
+//   try {
+//     const response = await fetch('http://[::1]:3000/data/new', {
+//       method: "POST", 
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     });
+
+//     const result = await response.json();
+//     console.log("Success:", result);
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// }
+
 function deleteData(hole_id) {
   var form = new FormData();
   if (window.location.pathname.includes("userhole")){
@@ -29,7 +48,6 @@ function deleteData(hole_id) {
     form.append("datum[hole_id]", hole_id);
     // form.append("datum[user_hole_id]", null);
   }
-
 
   Rails.ajax({
     url: "/data/deleter",
@@ -60,6 +78,21 @@ function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
   }
   form.append("datum[terrain_type]", terrain_type);
 
+  
+  
+  // let data = {
+  //   xCoordinates : xCoordinates,
+  //   yCoordinates : yCoordinates,
+  //   hole_id :window.location.pathname.includes("userhole") ? nil : hole_id ,
+  //   user_hole_id :window.location.pathname.includes("userhole") ? hole_id : nil,
+  //   terrain_type : terrain_type 
+
+  // }
+  
+  
+  
+  //const data1 = { username: "example" };
+  //postJSON(data1);
   Rails.ajax({
     url: "/data/new",
     type: "post",
@@ -76,7 +109,10 @@ var submitButton = document.getElementById("submit-hole");
  */
 submitButton.onclick = function () {
   var hole_id = document.getElementById("hole").value; 
-  deleteData(hole_id);
+  if (window.location.pathname.includes("edit")) {
+    deleteData(hole_id);
+  }
+  
   if (fairways.getLayers().length > 0) {
     fairways.eachLayer(function (layer) {
       var xCoordinates = [];
