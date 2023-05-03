@@ -1,3 +1,5 @@
+# extra features test
+
 require "rails_helper"
 require "capybara/rspec"
 require "capybara/rails"

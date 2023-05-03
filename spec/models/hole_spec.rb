@@ -180,9 +180,6 @@ RSpec.describe Hole, type: :model do
     end
   end
 
-
-
-
   describe 'Associations' do
     it 'should belong to user' do
       user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")

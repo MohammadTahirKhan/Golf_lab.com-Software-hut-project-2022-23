@@ -1,3 +1,5 @@
+#  test the features of devices
+
 require "rails_helper"
 require "capybara/rspec"
 require "capybara/rails"
