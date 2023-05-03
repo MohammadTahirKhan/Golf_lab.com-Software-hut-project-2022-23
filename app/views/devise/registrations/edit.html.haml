@@ -1,3 +1,4 @@
+-# Edit an account
 %div#whole_profile
     %div#profile-user-form
         %h2#header Edit #{resource_name.to_s.humanize}
@@ -33,6 +34,7 @@
                 = f.submit "Update" , class: "btn btn-primary form-btn"
             = link_to "Back", :back, id: "back"
 
+    -# Delete an account if not admin or map creator
     %div#profile-user-form
         %h3#header Delete my account
         -if resource.user_role == "admin"
@@ -44,7 +46,7 @@
                 You are a map creator, you cannot delete your account.
             
         - else
-            -# - delete user holes 
+            -# - delete user account and all the user holes from that user
             Unhappy? #{button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary form-btn"}
             - user_holes = UserHole.where(user_id: resource.id)
             - user_holes.each do |user_hole|

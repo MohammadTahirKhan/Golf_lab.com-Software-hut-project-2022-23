@@ -1,3 +1,5 @@
+#  Test if all the pages are displayed
+
 require "rails_helper"
 require "capybara/rspec"
 require "capybara/rails"

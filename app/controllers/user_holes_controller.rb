@@ -2,6 +2,7 @@ class UserHolesController < ApplicationController
   before_action :set_user_hole, only: %i[ show edit update destroy ]
   before_action :require_user, only: %i[ show new edit create update destroy ]
 
+  # Require user role to access user_holes page functions
   def require_user
     unless current_user.user_role == "user"
       redirect_to root_path

@@ -2,6 +2,7 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin
 
+  # Require admin role to access admin page
   def require_admin
     unless current_user.user_role == "admin"
       redirect_to root_path
