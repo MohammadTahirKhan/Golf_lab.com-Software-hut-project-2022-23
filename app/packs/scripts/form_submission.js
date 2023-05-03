@@ -97,6 +97,7 @@ function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
     url: "/data/new",
     type: "post",
     data: form,
+    async : false
   });
 }
 
