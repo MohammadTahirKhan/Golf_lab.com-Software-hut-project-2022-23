@@ -1,5 +1,8 @@
-require 'csv' # for db download as .csv file
+# for db download as .csv file
+require 'csv' 
 
+# using tutorial provided by epigenesys
+# create a csv export of database
 class ExportController < ApplicationController
     def index
         tables = ["users", "holes", "datums", "user_holes"]

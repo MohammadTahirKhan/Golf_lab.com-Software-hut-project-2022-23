@@ -36,36 +36,18 @@ class DataController < ApplicationController
   def create
     @datum = Datum.new(datum_params)    
     if @datum.save
-      puts "Saved"
-      redirect_to '/',notice: "Datum was successfully created."
     else
-      puts "GG"
       puts @datum.errors.inspect
       render :new, status: :unprocessable_entity
     end
   end
 
   def deleter
-    puts datum_params["hole_id"]
-
-    @datum = Datum.where(user_hole_id: datum_params["user_hole_id"], hole_id: datum_params["hole_id"])
-    puts @datum
-    puts "LEXISNexis"
-    for a in @datum
-      puts a
-      a.destroy
-    end
-
+    Datum.where(user_hole_id: datum_params["user_hole_id"], hole_id: datum_params["hole_id"]).delete_all
   end
 
   # PATCH/PUT /data/1
   def update
-
-    # if @datum.update(datum_params)
-    #   redirect_to @datum, notice: "Datum was successfully updated."
-    # else
-    #   render :edit, status: :unprocessable_entity
-    # end
     redirect_to '/holes'
   end
 

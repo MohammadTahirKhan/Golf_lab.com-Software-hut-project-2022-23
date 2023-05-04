@@ -50,7 +50,6 @@ class UserHolesController < ApplicationController
       @yCoordinates.append(data.yCoordinates)
       @terrain_type.append(data.terrain_type)
     end
-
   end
 
   # POST /user_holes/new
@@ -63,22 +62,16 @@ class UserHolesController < ApplicationController
       hole_number: holeNumber
     )
     data = Datum.where(hole_id: user_hole_params[:hole_id])
-    
-    
-    
+
+    #creates data for a userhole, duplicating base hole data to allow modifications for a user's own hole    
     if @user_hole.save
       userhole_id = @user_hole.id
       for d in data
         b = d.dup
-        puts "before"
-        puts b
         b.hole_id = nil
         b.user_hole_id = userhole_id
-        puts "AFTER"
-        puts b
         b.save
       end
- 
       redirect_to @user_hole, notice: "User hole was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -87,12 +80,8 @@ class UserHolesController < ApplicationController
 
   # PATCH/PUT /user_holes/1
   def update
-
-    
-    
     if @user_hole.update(user_hole_params)
       @data = Datum.where(user_hole_id: @user_hole.id)
-      # puts @data
       @xCoordinates = []
       @yCoordinates = []
       @terrain_type = []
@@ -102,7 +91,7 @@ class UserHolesController < ApplicationController
         @yCoordinates.append(data.yCoordinates)
         @terrain_type.append(data.terrain_type)
       end
-      redirect_to buraq_path(:id => @user_hole.id, :course_name => @user_hole.hole.course_name, :xCoordinates => @xCoordinates, :yCoordinates => @yCoordinates, :terrain_type => @terrain_type), notice: "User hole was successfully updated."
+      redirect_to userhole_editing_path(:id => @user_hole.id, :course_name => @user_hole.hole.course_name, :xCoordinates => @xCoordinates, :yCoordinates => @yCoordinates, :terrain_type => @terrain_type), notice: "User hole was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end

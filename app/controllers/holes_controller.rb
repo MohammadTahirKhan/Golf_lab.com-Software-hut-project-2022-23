@@ -52,7 +52,6 @@ class HolesController < ApplicationController
   # PATCH/PUT /holes/1
   def update
     if @hole.update(hole_params)
-      x = params[:id]
       @data = Datum.where(hole_id: @hole.id)
       @xCoordinates = []
       @yCoordinates = []
