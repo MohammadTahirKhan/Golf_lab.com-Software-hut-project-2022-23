@@ -5,12 +5,9 @@ Rails.application.routes.draw do
     patch 'users/edit' => "devise/registrations#edit"
   end
 
-  # get '/holes/:id/edit', to: 'data#index'
-  # post '/holes/:id/edit', to: 'data#create'
-  # get '/holes/:id/edit', to: 'data#index'
   post '/data/deleter', to: 'data#deleter'
   post '/data/:id/edit', to: 'data#create'
-  get '/data/:id/edit/userhole', to: 'data#edit', as: :buraq
+  get '/data/:id/edit/userhole', to: 'data#edit', as: :userhole_editing
   post '/data/:id/edit/userhole', to: 'data#create'
   post '/data/new' , to: 'data#create'
   post '/data', to: redirect('/holes')
@@ -24,8 +21,6 @@ Rails.application.routes.draw do
   get '/export', to: 'export#index'
   post '/holes/new' , to: 'holes#create'
  
-  
-
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
