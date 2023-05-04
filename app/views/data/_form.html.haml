@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 = append_javascript_pack_tag "map_with_edit_control"
 
-= simple_form_for(@datum) do |f|
+= simple_form_for @datum, html: {onsubmit: 'return false'}  do |f|
   .card-body
     %p Draw out the features of the hole, using the shape types below
     %select.form-select{id: "shape-type"}

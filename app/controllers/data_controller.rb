@@ -38,7 +38,7 @@ class DataController < ApplicationController
 
   # POST /data
   def create
-    sleep 2
+    # sleep 2
     redirect_to "/holes"
   end
 

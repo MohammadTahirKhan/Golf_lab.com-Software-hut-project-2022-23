@@ -36,6 +36,42 @@ function deleteData(hole_id) {
   });
 }
 
+async function postMultiple(dataArray){
+  try{
+    const promises = dataArray.map(data => buraq(data));
+    const results = await Promise.all(promises);
+    console.log(results);
+  } catch (error){
+    console.error("Errorrre" , error);
+  }
+}
+
+async function buraq(datum){
+  console.log(datum)
+  const csrfToken = document.getElementsByName("csrf-token")[0].content;
+  const response = await fetch("/data/new", {
+
+    method: "POST",
+
+    headers: {
+      "X-CSRF-Token": csrfToken,
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+
+    body: JSON.stringify({
+      datum
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success", data);
+    })
+    .catch((error => {
+      console.log("Error", error);
+    }));
+}
+
 /**
  * Sends shape data to Rails
  * @param {Number[][]} xCoordinates 
@@ -45,25 +81,6 @@ function deleteData(hole_id) {
  * @returns {void}
  */
 function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
-  // var form = new FormData();
-  
-  
-  // form.append("datum[xCoordinates]", xCoordinates);
-  // form.append("datum[yCoordinates]", yCoordinates);
-  // if (window.location.pathname.includes("userhole")) {
-  //   form.append("datum[user_hole_id]", hole_id);
-  // }
-  // else{
-  //   form.append("datum[hole_id]", hole_id);
-  // }
-  // form.append("datum[terrain_type]", terrain_type);
-
-  // Rails.ajax({
-  //   url: "/data/new",
-  //   type: "post",
-  //   data: form,
-  //   timeout: 5000
-  // });
   var datum;
   if (window.location.pathname.includes("userhole")){
     datum = {
@@ -82,30 +99,37 @@ function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
     }
   }
 
-  const csrfToken = document.getElementsByName("csrf-token")[0].content;
-  fetch("/data/new", {
+  return datum
 
-    method: "POST",
+  // const csrfToken = document.getElementsByName("csrf-token")[0].content;
+  // const response = await fetch("/data/new", {
 
-    headers: {
-      "X-CSRF-Token": csrfToken,
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
+  //   method: "POST",
 
-    body: JSON.stringify({
-      datum
-    }),
+  //   headers: {
+  //     "X-CSRF-Token": csrfToken,
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json"
+  //   },
 
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success", data);
-    })
-    .catch((error => {
-      console.log("Error",error);
-    }));
+  //   body: JSON.stringify({
+  //     datum
+  //   }),
 
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log("Success", data);
+  //   })
+  //   .catch((error => {
+  //     console.log("Error",error);
+  //   }));
+
+  // if (response.ok){
+  //   // throw new Error("HTTP error ");
+  // };
+
+  // const data = await response.json()
 }
 
 var submitButton = document.getElementById("submit-hole");
@@ -115,18 +139,9 @@ var submitButton = document.getElementById("submit-hole");
  * Calls sendData() and deleteData() to create holes
  * @returns {void}
  */
-submitButton.onclick = function () {
-  var hole_id = document.getElementById("hole").value; 
-  // alert(
-  //   ("afterclick fairwaysLLLL:" + fairways.getLayers().length) +
-  //   ("  bunker:" + bunkers.getLayers().length) +
-  //   ("  rocks:" + rocks.getLayers().length) +
-  //   ("  greens:" + greens.getLayers().length ) +
-  //   ("  roughs:" + roughs.getLayers().length )+
-  //   ("  trees:" + trees.getLayers().length ) +
-  //   ("  water:" + water.getLayers().length) +
-  //   ("  tees:" + tees.getLayers().length)
-  // )
+submitButton.onclick = async function () {
+  var hole_id = document.getElementById("hole").value;
+  var dataArray = [] 
   if (window.location.pathname.includes("edit")) {
     deleteData(hole_id);
   }
@@ -139,7 +154,7 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "fairway");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "fairway"));
     });
   }
 
@@ -151,7 +166,7 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "bunker");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "bunker"));
     });
   }
 
@@ -163,7 +178,7 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "rock");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "rock"));
     });
   }
 
@@ -175,7 +190,7 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "green");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "green"));
     });
   }
 
@@ -187,7 +202,7 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "rough");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "rough"));
     });
   }
 
@@ -199,7 +214,7 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "tree");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "tree"));
     });
   }
 
@@ -211,7 +226,7 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "water");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "water"));
     });
   }
 
@@ -223,7 +238,28 @@ submitButton.onclick = function () {
         xCoordinates.push(layer.getLatLngs()[0][i].lat);
         yCoordinates.push(layer.getLatLngs()[0][i].lng);
       }
-      sendData(xCoordinates, yCoordinates, hole_id, "tee");
+      dataArray.push(sendData(xCoordinates, yCoordinates, hole_id, "tee"));
     });
   }
+
+  console.log(dataArray)
+
+  // postMultiple(dataArray)
+  //   .then(() => {
+  //     window.location.href = '/holes'
+  //   })
+  //   .catch(error => {
+  //     console.error("fdsfg" , error)
+  //   }); 
+
+  const promises = dataArray.map(buraq)
+  Promise.all(promises)
+    .then(data => {
+      
+      window.location.href = '/holes'
+    })
+    .catch(error => {
+      console.error("fdsfg" , error)
+    }); 
+    
 };
