@@ -17,14 +17,13 @@ class DataController < ApplicationController
   # GET /data/new
   def new
     @datum = Datum.new()
+    @datum.hole_id = params[:id]
     @course_name = params[:course_name]
     @hole_id = params[:id]
   end
 
   # GET /data/1/edit
   def edit
-
-    
     @hole_id = params[:id]
     @course_name = params[:course_name]
     @xCoordinates = params[:xCoordinates]
@@ -32,14 +31,15 @@ class DataController < ApplicationController
     @terrain_type = params[:terrain_type]
   end
 
+  def bob
+    puts "BHHA"
+    @datum = Datum.create(datum_params)
+  end
+
   # POST /data
   def create
-    @datum = Datum.new(datum_params)    
-    if @datum.save
-    else
-      puts @datum.errors.inspect
-      render :new, status: :unprocessable_entity
-    end
+    sleep 2
+    redirect_to "/holes"
   end
 
   def deleter

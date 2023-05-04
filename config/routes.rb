@@ -6,11 +6,10 @@ Rails.application.routes.draw do
   end
 
   post '/data/deleter', to: 'data#deleter'
-  post '/data/:id/edit', to: 'data#create'
+  post '/data/:id/edit', to: 'data#bob'
   get '/data/:id/edit/userhole', to: 'data#edit', as: :userhole_editing
-  post '/data/:id/edit/userhole', to: 'data#create'
-  post '/data/new' , to: 'data#create'
-  post '/data', to: redirect('/holes')
+  post '/data/:id/edit/userhole', to: 'data#bob'
+  post '/data/new' , to: 'data#bob'
   
   resources :data
   resources :user_holes

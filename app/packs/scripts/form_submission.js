@@ -3,7 +3,7 @@
  */
 
 import Rails from "@rails/ujs";
-import { post } from "jquery";
+import { data, error, post } from "jquery";
 import {
   fairways,
   greens,
@@ -45,25 +45,67 @@ function deleteData(hole_id) {
  * @returns {void}
  */
 function sendData(xCoordinates, yCoordinates, hole_id, terrain_type) {
-  var form = new FormData();
+  // var form = new FormData();
   
   
-  form.append("datum[xCoordinates]", xCoordinates);
-  form.append("datum[yCoordinates]", yCoordinates);
-  if (window.location.pathname.includes("userhole")) {
-    form.append("datum[user_hole_id]", hole_id);
+  // form.append("datum[xCoordinates]", xCoordinates);
+  // form.append("datum[yCoordinates]", yCoordinates);
+  // if (window.location.pathname.includes("userhole")) {
+  //   form.append("datum[user_hole_id]", hole_id);
+  // }
+  // else{
+  //   form.append("datum[hole_id]", hole_id);
+  // }
+  // form.append("datum[terrain_type]", terrain_type);
+
+  // Rails.ajax({
+  //   url: "/data/new",
+  //   type: "post",
+  //   data: form,
+  //   timeout: 5000
+  // });
+  var datum;
+  if (window.location.pathname.includes("userhole")){
+    datum = {
+      xCoordinates: xCoordinates.toString(),
+      yCoordinates: yCoordinates.toString(),
+      terrain_type: terrain_type,
+      user_hole_id: hole_id
+    }
   }
   else{
-    form.append("datum[hole_id]", hole_id);
+    datum = {
+      xCoordinates: xCoordinates.toString(),
+      yCoordinates: yCoordinates.toString(),
+      terrain_type: terrain_type,
+      hole_id: hole_id,
+    }
   }
-  form.append("datum[terrain_type]", terrain_type);
 
-  Rails.ajax({
-    url: "/data/new",
-    type: "post",
-    data: form,
-    async : false
-  });
+  const csrfToken = document.getElementsByName("csrf-token")[0].content;
+  fetch("/data/new", {
+
+    method: "POST",
+
+    headers: {
+      "X-CSRF-Token": csrfToken,
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+
+    body: JSON.stringify({
+      datum
+    }),
+
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success", data);
+    })
+    .catch((error => {
+      console.log("Error",error);
+    }));
+
 }
 
 var submitButton = document.getElementById("submit-hole");
@@ -75,6 +117,16 @@ var submitButton = document.getElementById("submit-hole");
  */
 submitButton.onclick = function () {
   var hole_id = document.getElementById("hole").value; 
+  // alert(
+  //   ("afterclick fairwaysLLLL:" + fairways.getLayers().length) +
+  //   ("  bunker:" + bunkers.getLayers().length) +
+  //   ("  rocks:" + rocks.getLayers().length) +
+  //   ("  greens:" + greens.getLayers().length ) +
+  //   ("  roughs:" + roughs.getLayers().length )+
+  //   ("  trees:" + trees.getLayers().length ) +
+  //   ("  water:" + water.getLayers().length) +
+  //   ("  tees:" + tees.getLayers().length)
+  // )
   if (window.location.pathname.includes("edit")) {
     deleteData(hole_id);
   }
