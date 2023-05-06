@@ -1,6 +1,8 @@
 class UserMailer < ApplicationMailer
-    def update_notification(user)
+    def update_notification(user, hole)
         @user = user
-        mail(to: @user.email, subject: "Edited hole")
+        @hole_number = hole.hole_number
+        @course_name = hole.course_name
+        mail(to: @user.email, subject: "Course updates")
     end
 end
