@@ -84,13 +84,13 @@ if (!window.location.pathname.includes("userhole") && !window.location.pathname.
  * @return {void}
  * @listens window.onload
  */
-window.onload = function () {
-  var osm = new OpenStreetMapProvider();
-  var courseName = document.getElementById("course").value.split(",")[0];
-  osm.search({ query: courseName }).then((result) => {
-    map.setView([result[0].y, result[0].x], 16);
-  });
-};
+// window.onload = function () {
+//   var osm = new OpenStreetMapProvider();
+//   var courseName = document.getElementById("course").value.split(",")[0];
+//   osm.search({ query: courseName }).then((result) => {
+//     map.setView([result[0].y, result[0].x], 16);
+//   });
+// };
 
 
 // ================== LOADING SHAPES ONTO MAP ==================
@@ -110,6 +110,7 @@ for (var i = 0; i < xCoords.length; i++) {
   yCoords[i] = yCoords[i].split(",");
 }
 
+var bounds = new L.LatLngBounds();
 // Creating the shapes and adding to correct feature group
 for (var shape = 0; shape < xCoords.length; shape++) {
   var latLngs = [];
@@ -143,6 +144,15 @@ for (var shape = 0; shape < xCoords.length; shape++) {
     case "tee":
       tees.addLayer(polygon);
   }
+  bounds.extend(polygon.getBounds());
+}
+
+// Centres the shapes on the map
+map.fitBounds(bounds);
+// Disabling zoom out and panning for user holes
+if (window.location.pathname.includes("userhole") || window.location.pathname.includes("user_hole")) {
+  map.setMinZoom(map.getZoom());
+  map.setMaxBounds(bounds.pad(1));
 }
 
 export { map, fairways, greens, roughs, bunkers, water, rocks, trees, tees };
