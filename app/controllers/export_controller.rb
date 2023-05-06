@@ -4,6 +4,16 @@ require 'csv'
 # using tutorial provided by epigenesys
 # create a csv export of database
 class ExportController < ApplicationController
+    before_action :authenticate_user!
+    before_action :check_admin
+
+    # check if user is admin
+    def check_admin
+        if current_user.user_role != "admin"
+            redirect_to root_path
+        end
+    end
+
     def index
         tables = ["users", "holes", "datums", "user_holes"]
         combined_data = Hash.new
