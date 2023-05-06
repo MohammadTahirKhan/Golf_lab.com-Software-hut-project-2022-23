@@ -52,6 +52,14 @@ class HolesController < ApplicationController
   # PATCH/PUT /holes/1
   def update
     if @hole.update(hole_params)
+
+      # Email notif
+      @user_holes = UserHole.where(hole_id: @hole.id)
+      @user_holes.each do |user_hole|
+        @user = User.find_by(id: user_hole.user_id)
+        UserMailer.update_notification(@user, @hole).deliver_now
+      end
+
       @data = Datum.where(hole_id: @hole.id)
       @xCoordinates = []
       @yCoordinates = []
