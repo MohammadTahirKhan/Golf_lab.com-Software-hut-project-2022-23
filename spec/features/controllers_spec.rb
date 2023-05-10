@@ -92,39 +92,54 @@ RSpec.describe "testing if all the pages are displayed" do
         expect(page).to have_content("Listing User Holes")
     end
 
-    # it "should display the show user holes page" do
-    #     user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
-    #     visit "/users/sign_in"
-    #     fill_in "Email", with: "1@gmail.com"
-    #     fill_in "Password", with: "123456"
-    #     click_button "Login"
-    #     visit "/holes/new"
-    #     fill_in "Hole number", with: "1"
-    #     fill_in "Course name", with: "TestCourse"
-    #     click_button "Save"
-    #     visit new_user_hole_path
-    #     click_button "Create", match: :first 
-    #     visit "/user_holes/7"
+    it "should display the show user holes page" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/holes/new"
+        fill_in "Hole number", with: "1"
+        fill_in "Course name", with: "TestCourse"
+        click_button "Save"
+        visit destroy_user_session_path
 
-    #     expect(page).to have_content("User Hole details")
-    # end
+        user2 = User.create(id: 12124, email: "2@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "2@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit new_user_hole_path
+        click_button "Create"
+        visit "/user_holes/1"
+        expect(page).to have_content("User Hole Details")
 
-    # it "should display the edit user holes page" do
-    # #     # visit root_path
-    #     user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
-    #     visit "/users/sign_in"
-    #     fill_in "Email", with: "1@gmail.com"
-    #     fill_in "Password", with: "123456"
-    #     click_button "Login"
-    #     visit "/holes/new"
-    #     fill_in "Hole number", with: "1"
-    #     fill_in "Course name", with: "TestCourse"
-    #     click_button "Save"
-    #     visit new_user_hole_path
-    #     click_button "Create", match: :first 
-    #     visit "/user_holes/7/edit"
-    #     expect(page).to have_content("Editing User Hole")
-    # end
+    end
+
+    it "should display the edit user holes page" do
+    #     # visit root_path
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/holes/new"
+        fill_in "Hole number", with: "1"
+        fill_in "Course name", with: "TestCourse"
+        click_button "Save"
+        visit destroy_user_session_path
+        user2 = User.create(id: 12124, email: "2@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "2@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit new_user_hole_path
+        click_button "Create"
+        visit edit_user_hole_path(2)
+        expect(page).to have_content("Edit Hole")
+        click_button "Continue to map"
+        expect(page).to have_content("Edit Hole")
+    end
 
     it "display forgot password page" do
         visit "/users/sign_in"
@@ -143,13 +158,24 @@ RSpec.describe "testing if all the pages are displayed" do
     end
 
     it "should display the delete account section" do
-        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
         visit "/users/sign_in"
         fill_in "Email", with: "1@gmail.com"
         fill_in "Password", with: "123456"
         click_button "Login"
         visit "/users/edit"
         expect(page).to have_content "Delete my account"
+    end
+
+    it "should not display the delete account option" do
+        user = User.create(id: 12113, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/users/edit"
+        expect(page).to have_content "You are a map creator, you cannot delete your account."
+        visit destroy_user_session_path
     end
 
     it "download the csv file" do
