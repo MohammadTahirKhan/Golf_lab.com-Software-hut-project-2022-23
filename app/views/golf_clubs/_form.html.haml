@@ -1,0 +1,21 @@
+.row.justify-content-center
+  .col-lg-8
+    .card
+      .card-header 
+        New Golf Club
+      = simple_form_for(@golf_club) do |f|
+        .card-body
+          .form-group
+            = f.input :name, required: true, label: 'Club Name'
+          .form-group
+            = f.input :manufacturer, required: true, label: 'Manufacturer'
+          .form-group
+            = f.label :user_hole_id, 'Club Type'
+            = f.select :club_type, GolfClub::CLUB_TYPES, {prompt: 'Select a Club Type'}, {class: 'form-control'}
+          .form-group
+            = f.label :user_hole_id, 'Select Hole'
+            = f.collection_select :user_hole_id, UserHole.all, :id, :hole_number, {prompt: 'Choose a Hole'}, {class: 'form-control'}
+        
+        .card-footer.d-flex
+          = f.submit 'Save', class: 'btn btn-primary'
+          = link_to 'Back', golf_clubs_path, class: 'btn btn-link ms-auto'
