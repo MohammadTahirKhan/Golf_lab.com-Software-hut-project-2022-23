@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :holes
   resources :courses
   resources :admin
+  resources :user_data
   resources :handicaps
   resources :golf_clubs
 

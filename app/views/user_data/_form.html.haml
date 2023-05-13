@@ -1,0 +1,9 @@
+= simple_form_for(user_datum) do |f|
+  .card-body
+    = f.label :user_hole_id, 'Select Hole'
+    = f.collection_select :user_hole_id, UserHole.all, :id, :hole_number, {prompt: 'Choose a Hole'}, {class: 'form-control'}
+    = f.input :score, required: true, label: 'Score', input_html: { type: 'number' }
+
+  .card-footer.d-flex
+    = f.submit 'Save', class: 'btn btn-primary'
+    = link_to 'Back', user_data_path, class: 'btn btn-link ms-auto'
