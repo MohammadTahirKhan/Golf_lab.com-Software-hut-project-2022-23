@@ -1,0 +1,22 @@
+ This is a solution for rotating the golf course that is not fully working. 
+ 
+ 
+ 
+ import PCA from 'ml-pca';
+ import 'leaflet-path-transform';  
+
+
+  var pca = new PCA(latLngs);
+  var mainAxisAngle = Math.atan2(pca.getEigenvectors()[0][1], pca.getEigenvectors()[0][0]);
+  mainAxisAngle *= 180 / Math.PI; // Convert to degrees
+
+  var polygon = new L.Polygon(latLngs);
+  polygon.transform.enable({ rotation: true, scaling: false });
+
+  var firstPoint = latLngs[0];
+  var lastPoint = latLngs[latLngs.length - 1];
+  var angle = Math.atan2(lastPoint[1] - firstPoint[1], lastPoint[0] - firstPoint[0]) * 180 / Math.PI;
+  polygon.transform.rotate(angle);
+
+  // Rotate the shape using the mainAxisAngle
+  polygon.transform.rotate(mainAxisAngle);
