@@ -1,7 +1,7 @@
 -# frozen_string_literal: true
 = simple_form_for(@hole) do |f|
   .card-body
-    = f.input :hole_number, required: true
+    = f.input :hole_number, required: true, :maxlength => 50
     = f.input :course_name, required: true, input_html: {id: "searchbar"}
 
   .card-footer.d-flex
