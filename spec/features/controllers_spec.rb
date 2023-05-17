@@ -211,4 +211,121 @@ RSpec.describe "testing if all the pages are displayed" do
         expect(page).to have_content "Edit User Role"
     end
 
+    it "should be able to display user holes for admin" do
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "admin")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/user_holes"
+        expect(page).to have_content("Listing User Holes")
+    end
+
+    it "should display user holes page for mapcreator" do
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/user_holes"
+        expect(page).to have_content("Listing User Holes")
+    end
+
+    it "should not display admin page for mapcreator or user" do
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/admin"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+        visit destroy_user_session_path
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/admin"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+    end
+
+    it "should not display holes page for user" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/holes"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+    end
+
+    it "should not let user create hole" do
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/holes/new"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+    end
+
+    it "should not let a mapcreator or user download database" do
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/export"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+        visit destroy_user_session_path
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "user")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/export"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+    end
+
+    it "should not let admin or mapcreator create userhole" do
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "map_creator")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/user_holes/new"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+        visit destroy_user_session_path
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "admin")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/user_holes/new"
+        # expect root path or home page
+        expect(page).to have_content("Group 31")
+        expect(page).to have_content("Explore")
+    end
 end
