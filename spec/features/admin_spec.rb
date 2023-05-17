@@ -57,4 +57,16 @@ RSpec.describe "testing admin features" do
 
     end
 
+    it "should be able to display user holes" do
+        User.delete_all
+        user = User.create(id: 12123, email: "1@gmail.com", password: "123456", user_role: "admin")
+        visit "/users/sign_in"
+        fill_in "Email", with: "1@gmail.com"
+        fill_in "Password", with: "123456"
+        click_button "Login"
+        visit "/user_holes"
+        expect(page).to have_content("Listing User Holes")
+    end
+
+
 end
