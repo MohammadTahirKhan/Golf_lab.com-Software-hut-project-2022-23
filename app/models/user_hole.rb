@@ -23,6 +23,4 @@ class UserHole < ApplicationRecord
     belongs_to :user
     belongs_to :hole
     has_many :datum, dependent: :destroy 
-    has_many :handicaps
-    has_many :golf_clubs
 end

@@ -9,7 +9,7 @@
         .card-body
           = f.input :hole_number, required: true
           %h5 
-            = @user_hole.hole.course_name
+          = @user_hole.hole.course_name
         .card-footer.d-flex
           = f.submit 'Continue to map', class: 'btn btn-primary', id: 'submit-hole'
           = link_to 'Back', holes_path, class: 'btn btn-link ms-auto'

@@ -1,9 +1,0 @@
-.row.justify-content-center
-  .col-lg-8
-    .card
-      .card-header 
-        Golf Club
-      .card-body
-        %p= @golf_club.name
-        = link_to 'Edit', edit_golf_club_path(@golf_club)
-        = link_to 'Delete', golf_club_path(@golf_club), method: :delete

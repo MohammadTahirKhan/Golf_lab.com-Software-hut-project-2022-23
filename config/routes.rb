@@ -16,10 +16,6 @@ Rails.application.routes.draw do
   resources :holes
   resources :courses
   resources :admin
-  resources :user_data
-  resources :handicaps
-  resources :golf_clubs
-
 
   get '/export', to: 'export#index'
   post '/holes/new' , to: 'holes#create'

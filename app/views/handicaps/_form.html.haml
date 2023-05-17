@@ -1,9 +1,0 @@
-= simple_form_for(@handicap) do |f|
-  .card-body
-    = f.input :value, required: true, label: 'Handicap Value'
-    = f.label :user_hole_id, 'Select Hole'
-    = f.collection_select :user_hole_id, UserHole.all, :id, :hole_number, {prompt: 'Choose a Hole'}, {class: 'form-control'}
-  
-  .card-footer.d-flex
-    = f.submit 'Save', class: 'btn btn-primary'
-    = link_to 'Back', handicaps_path, class: 'btn btn-link ms-auto'

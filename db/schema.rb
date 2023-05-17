@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_214848) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_06_155647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,24 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_214848) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "golf_clubs", force: :cascade do |t|
-    t.string "name"
-    t.string "manufacturer"
-    t.string "club_type"
-    t.bigint "user_hole_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_hole_id"], name: "index_golf_clubs_on_user_hole_id"
-  end
-
-  create_table "handicaps", force: :cascade do |t|
-    t.integer "value"
-    t.bigint "user_hole_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_hole_id"], name: "index_handicaps_on_user_hole_id"
-  end
-
   create_table "holes", force: :cascade do |t|
     t.integer "hole_number"
     t.boolean "is_beingEdited"
@@ -76,14 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_214848) do
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
-  end
-
-  create_table "user_data", force: :cascade do |t|
-    t.bigint "user_hole_id", null: false
-    t.integer "score"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_hole_id"], name: "index_user_data_on_user_hole_id"
   end
 
   create_table "user_holes", force: :cascade do |t|
@@ -111,10 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_214848) do
 
   add_foreign_key "data", "holes"
   add_foreign_key "data", "user_holes"
-  add_foreign_key "golf_clubs", "user_holes"
-  add_foreign_key "handicaps", "user_holes"
   add_foreign_key "holes", "users"
-  add_foreign_key "user_data", "user_holes"
   add_foreign_key "user_holes", "holes"
   add_foreign_key "user_holes", "users"
 end

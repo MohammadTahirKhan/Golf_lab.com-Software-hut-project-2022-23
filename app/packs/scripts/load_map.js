@@ -65,10 +65,7 @@ tees.on("layeradd", function () {
 });
 
 // Only displays satellite layer on hole pages, not user_holes
-if (
-  !window.location.pathname.includes("userhole") &&
-  !window.location.pathname.includes("user_hole")
-) {
+if (!window.location.pathname.includes("userhole") && !window.location.pathname.includes("user_hole")) {
   const satelliteLayer = L.tileLayer(
     "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
     {
@@ -81,6 +78,20 @@ if (
 
   map.addLayer(satelliteLayer);
 }
+
+/**
+ * Sets map view to the location of the course using hidden input field
+ * @return {void}
+ * @listens window.onload
+ */
+// window.onload = function () {
+//   var osm = new OpenStreetMapProvider();
+//   var courseName = document.getElementById("course").value.split(",")[0];
+//   osm.search({ query: courseName }).then((result) => {
+//     map.setView([result[0].y, result[0].x], 16);
+//   });
+// };
+
 
 // ================== LOADING SHAPES ONTO MAP ==================
 
@@ -99,68 +110,49 @@ for (var i = 0; i < xCoords.length; i++) {
   yCoords[i] = yCoords[i].split(",");
 }
 
-function loadShapes() {
-  var bounds = new L.LatLngBounds();
-
-  // Creating the shapes and adding to correct feature group
-  for (var shape = 0; shape < xCoords.length; shape++) {
-    var latLngs = [];
-    for (var point = 0; point < xCoords[shape].length; point++) {
-      latLngs.push([xCoords[shape][point], yCoords[shape][point]]);
-    }
-    var polygon = new L.Polygon(latLngs);
-
-    switch (terrain[shape]) {
-      case "fairway":
-        fairways.addLayer(polygon);
-        break;
-      case "green":
-        greens.addLayer(polygon);
-        break;
-      case "rough":
-        roughs.addLayer(polygon);
-        break;
-      case "rock":
-        rocks.addLayer(polygon);
-        break;
-      case "bunker":
-        bunkers.addLayer(polygon);
-        break;
-      case "water":
-        water.addLayer(polygon);
-        break;
-      case "tree":
-        trees.addLayer(polygon);
-        break;
-      case "tee":
-        tees.addLayer(polygon);
-    }
-    bounds.extend(polygon.getBounds());
+var bounds = new L.LatLngBounds();
+// Creating the shapes and adding to correct feature group
+for (var shape = 0; shape < xCoords.length; shape++) {
+  var latLngs = [];
+  for (var point = 0; point < xCoords[shape].length; point++) {
+    latLngs.push([xCoords[shape][point], yCoords[shape][point]]);
   }
+  var polygon = new L.Polygon(latLngs);
 
-  return bounds;
+  switch (terrain[shape]) {
+    case "fairway":
+      fairways.addLayer(polygon);
+      break;
+    case "green":
+      greens.addLayer(polygon);
+      break;
+    case "rough":
+      roughs.addLayer(polygon);
+      break;
+    case "rock":
+      rocks.addLayer(polygon);
+      break;
+    case "bunker":
+      bunkers.addLayer(polygon);
+      break;
+    case "water":
+      water.addLayer(polygon);
+      break;
+    case "tree":
+      trees.addLayer(polygon);
+      break;
+    case "tee":
+      tees.addLayer(polygon);
+  }
+  bounds.extend(polygon.getBounds());
 }
 
-// If there are no shapes, centre map on course
-if (xCoords[0] == "" || xCoords[0] == "[]") {
-  var osm = new OpenStreetMapProvider();
-  var courseName = document.getElementById("course").value.split(",")[0];
-  osm.search({ query: courseName }).then((result) => {
-    map.setView([result[0].y, result[0].x], 16);
-  });
-
-  // If there are shapes, load them onto map and fit map to bounds
-} else {
-  var bounds = loadShapes();
-  map.fitBounds(bounds);
-  // Disables zooming out and panning away from shapes on user hole pages
-  if (
-    window.location.pathname.includes("userhole") ||
-    window.location.pathname.includes("user_hole")
-  ) {
-    map.setMinZoom(map.getZoom());
-    map.setMaxBounds(bounds.pad(1));
-  }
+// Centres the shapes on the map
+map.fitBounds(bounds);
+// Disabling zoom out and panning for user holes
+if (window.location.pathname.includes("userhole") || window.location.pathname.includes("user_hole")) {
+  map.setMinZoom(map.getZoom());
+  map.setMaxBounds(bounds.pad(1));
 }
 
 export { map, fairways, greens, roughs, bunkers, water, rocks, trees, tees };

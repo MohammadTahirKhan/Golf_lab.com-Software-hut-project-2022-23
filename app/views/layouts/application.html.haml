@@ -50,12 +50,6 @@
                   %li.nav-item
                     = link_to 'User Holes Page', user_holes_path, class: 'nav-link'
                   %li.nav-item
-                    = link_to 'User Data Page', user_data_path , class: 'nav-link'
-                  %li.nav-item
-                    = link_to 'Handicaps', handicaps_path, class: 'nav-link'
-                  %li.nav-item
-                    = link_to 'Golf Clubs', golf_clubs_path, class: 'nav-link'
-                  %li.nav-item
                     = link_to 'Download CSV Database', export_path, class: 'nav-link', onclick: "return confirm('Are you sure?')" if current_user.admin?
                   %li.nav-item
                     = link_to 'Admin', admin_index_path, class: 'nav-link' if current_user.admin?
